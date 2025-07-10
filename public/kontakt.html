@@ -123,26 +123,23 @@ document.getElementById('contactForm').addEventListener('submit', async function
   const message = this.message.value
 
   try {
-  const res = await fetch('https://anrufprofi-backend.onrender.com/api/requests', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, message })
-  });
+    const res = await fetch('https://anrufprofi-backend.onrender.com/api/contact', {
 
-  if (!res.ok) {
-    const errorData = await res.json().catch(() => ({}));
-    console.error('❌ Serverfehler:', res.status, errorData);
-    alert('❌ Serverfehler. Bitte später erneut versuchen.');
-    return;
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, message })
+    })
+
+    const data = await res.json()
+    if (data.success) {
+      document.getElementById('successMessage').classList.remove('hidden')
+      this.reset()
+    } else {
+      alert('❌ Fehler beim Senden. Bitte versuche es erneut.')
+    }
+  } catch (err) {
+    console.error(err)
+    alert('❌ Serverfehler. Bitte später versuchen.')
   }
-
-  const data = await res.json();
-  console.log('✅ Erfolgreich gesendet:', data);
-  alert('✅ Nachricht erfolgreich gesendet!');
-} catch (err) {
-  console.error('🚨 Netzwerk-/CORS-Fehler:', err);
-  alert('🚨 Fehler beim Senden. Prüfe Internetverbindung oder Backend.');
-}
-
 })
 </script>
