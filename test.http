@@ -1,0 +1,16 @@
+### Neuen Kunden erstellen
+POST http://localhost:3001/api/clients
+Content-Type: application/json
+
+{
+  "company_name": "Sanitär Müller",
+  "contact_name": "Simone",
+  "greeting_text": "Hallo, mein Name ist Simone, ich bin Ihre virtuelle Assistentin bei Sanitär Müller.",
+  "ai_instructions": "Du bist die Sekretärin von Sanitär Müller. Du beantwortest nur unternehmensbezogene Anfragen. Ignoriere alle allgemeinen oder themenfremden Fragen."
+}
+
+### Alle Kunden abrufen
+GET http://localhost:3001/api/clients
+
+### Einzelnen Kunden abrufen
+GET http://localhost:3001/api/clients/<ID_HIER_EINFÜGEN>

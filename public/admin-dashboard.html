@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard – anrufprofi.de</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<script>
+  if (localStorage.getItem('admin') !== 'true') {
+    window.location.href = '/adminpassword.html';
+  }
+</script>
+
+<body class="bg-gray-100 min-h-screen">
+  <div id="app" class="flex flex-col min-h-screen">
+    <!-- Navbar -->
+<!-- 🔝 Navigationsleiste -->
+<nav class="bg-indigo-600 text-white px-6 py-4 shadow mb-6">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <div class="text-lg font-semibold">
+      <a href="/admin-dashboard.html" class="hover:underline">📞 anrufprofi.de – Admin</a>
+    </div>
+    <div class="flex space-x-4 text-sm">
+      <a href="/admin-dashboard.html" class="hover:underline">📋 Anfragen</a>
+      <a href="/clients.html" class="hover:underline">🧾 Kundenliste</a>
+      <a href="/create-client.html" class="hover:underline">➕ Kunden anlegen</a>
+      <!-- optional: -->
+      <a href="/adminpassword.html" class="hover:underline text-red-200">🔒 Logout</a>
+    </div>
+  </div>
+</nav>
+
+
+    <!-- Content -->
+    <main class="flex-grow p-6 space-y-8">
+      <!-- Statistik Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="bg-white rounded-lg shadow p-4">
+          <h2 class="text-gray-500 text-sm">Gesamtanfragen</h2>
+          <p class="text-2xl font-bold">{{ stats.total }}</p>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4">
+          <h2 class="text-gray-500 text-sm">Offene Anfragen</h2>
+          <p class="text-2xl font-bold text-yellow-600">{{ stats.open }}</p>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4">
+          <h2 class="text-gray-500 text-sm">Erledigt</h2>
+          <p class="text-2xl font-bold text-green-600">{{ stats.done }}</p>
+        </div>
+      </div>
+
+      <!-- Tabelle -->
+      <div>
+        <h2 class="text-xl font-semibold mb-4">📋 Kontaktanfragen</h2>
+        <table class="min-w-full bg-white rounded-lg shadow overflow-hidden">
+          <thead class="bg-indigo-100">
+            <tr>
+              <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700">Name</th>
+              <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700">E-Mail</th>
+              <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700">Nachricht</th>
+              <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700">Status</th>
+              <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700">Aktionen</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="req in requests" :key="req.id" class="border-t">
+              <td class="py-2 px-4 text-sm">{{ req.name }}</td>
+              <td class="py-2 px-4 text-sm">{{ req.email }}</td>
+              <td class="py-2 px-4 text-sm">{{ req.message }}</td>
+              <td class="py-2 px-4 text-sm">
+                <span :class="req.status === 'erledigt' ? 'text-green-600' : 'text-yellow-600'">
+                  {{ req.status }}
+                </span>
+              </td>
+              <td class="py-2 px-4">
+                <button @click="markAsDone(req.id)" class="bg-green-500 hover:bg-green-600 text-white text-sm px-3 py-1 rounded" v-if="req.status !== 'erledigt'">
+                  Erledigt
+                </button>
+                <button @click="deleteRequest(req.id)" class="bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1 rounded ml-2">
+                  Löschen
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('admin') !== 'true') {
+      window.location.href = '/adminpassword.html';
+      return;
+    }
+
+    new Vue({
+      el: '#app',
+      data: {
+        requests: [],
+        stats: {
+          total: 0,
+          open: 0,
+          done: 0
+        }
+      },
+      mounted() {
+        this.fetchRequests();
+      },
+      methods: {
+        async fetchRequests() {
+          try {
+            const res = await fetch('/api/requests');
+            if (!res.ok) throw new Error('Netzwerkantwort war nicht ok');
+            let data = await res.json();
+            console.log('📦 Daten vom Server:', data);
+
+            this.requests = data.map(r => ({
+              ...r,
+              status: r.status?.replace(/'/g, '') // Hochkommas entfernen, falls nötig
+            }));
+
+            this.calculateStats();
+          } catch (error) {
+            console.error('Fehler beim Abrufen der Anfragen:', error);
+          }
+        },
+        calculateStats() {
+          this.stats.total = this.requests.length;
+          this.stats.open = this.requests.filter(r => r.status !== 'erledigt').length;
+          this.stats.done = this.requests.filter(r => r.status === 'erledigt').length;
+        },
+        async markAsDone(id) {
+          await fetch(`/api/requests/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: 'erledigt' })
+          });
+          this.fetchRequests();
+        },
+        async deleteRequest(id) {
+          await fetch(`/api/requests/${id}`, {
+            method: 'DELETE'
+          });
+          this.fetchRequests();
+        },
+        logout() {
+          localStorage.removeItem('admin');
+          window.location.href = '/adminpassword.html';
+        }
+      }
+    });
+  });
+  </script>
+</body>
+</html>

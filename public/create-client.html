@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>➕ Kunden anlegen – anrufprofi.de</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<script>
+  if (localStorage.getItem('admin') !== 'true') {
+    window.location.href = '/adminpassword.html';
+  }
+</script>
+
+<body class="bg-gray-100 p-6">
+
+  <!-- 🔝 Navigationsleiste -->
+  <nav class="bg-indigo-600 text-white px-6 py-4 shadow mb-6">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="text-lg font-semibold">
+        <a href="/admin-dashboard.html" class="hover:underline">📞 anrufprofi.de – Admin</a>
+      </div>
+      <div class="flex space-x-4 text-sm">
+        <a href="/admin-dashboard.html" class="hover:underline">📋 Anfragen</a>
+        <a href="/clients.html" class="hover:underline">🧾 Kundenliste</a>
+        <a href="/create-client.html" class="hover:underline">➕ Kunden anlegen</a>
+        <a href="/adminpassword.html" class="hover:underline text-red-200">🔒 Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div id="app" class="max-w-2xl mx-auto bg-white shadow p-6 rounded">
+    <h1 class="text-2xl font-bold mb-4">➕ Neuen Kunden anlegen</h1>
+
+    <form @submit.prevent="submitClient" class="space-y-4">
+      <div>
+        <label class="block font-medium">Unternehmensname</label>
+        <input v-model="client.company_name" required class="w-full p-2 border rounded" />
+      </div>
+
+      <div>
+        <label class="block font-medium">Kontaktperson</label>
+        <input v-model="client.contact_name" required class="w-full p-2 border rounded" />
+      </div>
+
+      <div>
+        <label class="block font-medium">KI-Name (z. B. Klara)</label>
+        <input v-model="client.ai_name" required class="w-full p-2 border rounded" />
+      </div>
+
+      <div>
+        <label class="block font-medium">Begrüßungstext</label>
+        <textarea v-model="client.greeting_text" required rows="2" class="w-full p-2 border rounded"></textarea>
+      </div>
+
+      <div>
+        <label class="block font-medium">KI-Anweisung</label>
+        <textarea v-model="client.ai_instructions" required rows="4" class="w-full p-2 border rounded"></textarea>
+      </div>
+
+      <div>
+        <label class="block font-medium">Abo-Paket</label>
+        <select v-model="client.subscription" required class="w-full p-2 border rounded">
+          <option disabled value="">Bitte auswählen</option>
+          <option value="Starter">Starter – 99 €/Monat</option>
+          <option value="Basic">Basic – 199 €/Monat</option>
+          <option value="Pro+">Pro+ – 499 €/Monat</option>
+        </select>
+      </div>
+
+      <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded">
+        💾 Kunde speichern
+      </button>
+    </form>
+
+    <p v-if="success" class="text-green-600 mt-4">✅ Kunde erfolgreich angelegt!</p>
+    <p v-if="error" class="text-red-600 mt-4">❌ Fehler beim Speichern: {{ error }}</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        client: {
+          company_name: '',
+          contact_name: '',
+          ai_name: 'Klara',
+          greeting_text: '',
+          ai_instructions: '',
+          subscription: ''
+        },
+        success: false,
+        error: ''
+      },
+      methods: {
+        async submitClient() {
+          this.success = false;
+          this.error = '';
+
+          try {
+            const response = await fetch('/api/clients', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(this.client)
+            });
+
+            const resData = await response.json();
+
+            if (!response.ok || !resData.success) {
+              throw new Error(resData.error || 'Unbekannter Fehler');
+            }
+
+            this.success = true;
+            this.client = {
+              company_name: '',
+              contact_name: '',
+              ai_name: 'Klara',
+              greeting_text: '',
+              ai_instructions: '',
+              subscription: ''
+            };
+          } catch (err) {
+            this.error = err.message;
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

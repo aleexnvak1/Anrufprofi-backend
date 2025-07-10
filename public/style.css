@@ -1,0 +1,127 @@
+.header {
+
+    
+    
+    .fake{
+        text-align: center;
+    }
+    .fake-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #e0eeff;        
+  color: #000080;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 28px;
+
+  width: 400px;        /* feste Breite für gleichbleibende Größe */
+  white-space: nowrap; /* verhindert Zeilenumbruch im Text */
+  overflow: hidden;    /* falls Text zu lang wird */
+  text-overflow: ellipsis; /* optional: ... bei Überlauf */
+}
+
+
+    
+    h1{
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: -20px;
+        color: navy;
+
+
+    }
+    padding-top: 10px;
+    background-color: #f5f8fa ;
+}
+#textWechsler {
+  display: inline-block;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  will-change: transform, opacity;
+}
+#textWechsler.slide-out {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+#textWechsler.slide-in {
+  transform: translateY(100%);
+  opacity: 0;
+}
+#textWechsler.visible {
+  transform: translateY(0%);
+  opacity: 1;
+}
+#textWrapper {
+  position: relative;
+  height: 50px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#textWechsler {
+  position: absolute;
+  transition: transform 0.5s ease-in-out;
+  font-size: 28px;
+  font-weight: bold;
+  color: navy;
+  background-color: #C1DCFB;
+  padding: 10px 20px;
+  border-radius: 25px;
+  width: 300px;
+  text-align: center;
+  white-space: nowrap;
+}
+#textWrapper {
+  position: relative;
+  height: 50px;
+  width: 300px;
+  margin: auto;
+  background-color: #C1DCFB;
+  border-radius: 25px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#textWechsler {
+  position: absolute;
+  font-size: 28px;
+  font-weight: bold;
+  color: navy;
+  white-space: nowrap;
+  transition: transform 0.5s ease-in-out;
+}
+.section-video-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-video-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: black;
+}
+
+.section-video-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('Fotos/emojis.m4a.mov') no-repeat center center / cover;
+  /* Achtung: funktioniert nur bei GIF/Bildern – für VIDEO siehe unten */
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 10;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
