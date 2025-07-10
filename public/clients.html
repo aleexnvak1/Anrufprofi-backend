@@ -90,7 +90,7 @@
         }
       },
       mounted() {
-        fetch('/api/clients')
+        fetch('https://anrufprofi-backend.onrender.com/api/clients')
           .then(res => res.json())
           .then(data => {
             if (data.success) {

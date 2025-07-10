@@ -60,7 +60,7 @@
   const clientId = urlParams.get('id');
 
   async function fetchClient() {
-    const res = await fetch(`/api/clients/${clientId}`);
+    const res = await fetch(`https://anrufprofi-backend.onrender.com/api/clients/${clientId}`);
     const json = await res.json();
     const c = json.client;
     document.getElementById('companyName').value = c.company_name || '';
@@ -80,7 +80,7 @@
       ai_instructions: document.getElementById('aiInstructions').value
     };
 
-    const res = await fetch(`/api/clients/${clientId}`, {
+    const res = await fetch(`https://anrufprofi-backend.onrender.com/api/clients/${clientId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updates)
