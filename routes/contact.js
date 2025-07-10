@@ -1,49 +1,49 @@
-const express = require('express')
-const nodemailer = require('nodemailer')
-const supabase = require('../supabaseclient')
+const express = require('express');
+const nodemailer = require('nodemailer');
+const supabase = require('../supabaseclient');
 
-const router = express.Router()
+const router = express.Router();
 
 router.post('/', async (req, res) => {
-  const { name, email, message } = req.body
+  const { name, email, message } = req.body;
 
-  console.log('📨 Neue Anfrage erhalten:', { name, email, message })
+  console.log('📨 Neue Anfrage erhalten:', { name, email, message });
 
-  // 1. In Supabase speichern
   try {
-    const { data, error } = await supabase
+    // 1. In Supabase speichern
+    const { error } = await supabase
       .from('contact_requests')
-      .insert([{ name, email, message, status: 'offen' }])
+      .insert([{ name, email, message, status: 'offen' }]);
 
     if (error) {
-      console.error('❌ Fehler beim Speichern in Supabase:', error)
-      return res.status(500).json({ success: false, error: 'Fehler beim Speichern der Nachricht.' })
+      console.error('❌ Fehler beim Speichern in Supabase:', error);
+      return res.status(500).json({ success: false, error: 'Fehler beim Speichern der Nachricht.' });
     }
 
-    console.log('✅ Anfrage gespeichert in Supabase:', data)
-
-    // 2. Bestätigungs-Mail senden
+    // 2. E-Mail über IONOS versenden
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.ionos.de',
+      port: 587,
+      secure: false, // TLS über STARTTLS
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    })
+        user: 'klara@anrufprofi.de',
+        pass: process.env.KLARA_EMAIL_PASS
+      }
+    });
 
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: 'klara@anrufprofi.de',
       to: email,
       subject: 'Vielen Dank für deine Anfrage bei anrufprofi.de',
       text: `Hallo ${name},\n\nvielen Dank für deine Nachricht:\n\n"${message}"\n\nWir melden uns schnellstmöglich zurück!\n\n– Dein anrufprofi.de Team`,
-    })
+    });
 
-    return res.status(200).json({ success: true, message: 'Anfrage gespeichert & E-Mail versendet' })
+    res.status(200).json({ success: true, message: 'Anfrage gespeichert & E-Mail versendet' });
 
   } catch (err) {
-    console.error('❌ Allgemeiner Fehler:', err)
-    return res.status(500).json({ success: false, error: 'Serverfehler beim Verarbeiten der Anfrage.' })
+    console.error('❌ Allgemeiner Fehler:', err);
+    res.status(500).json({ success: false, error: 'Serverfehler beim Verarbeiten der Anfrage.' });
   }
-})
+});
 
-module.exports = router
+module.exports = router;
