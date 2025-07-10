@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
         <table style="font-family:'Plus Jakarta Sans', sans-serif; color:#333; margin-top:15px;">
           <tr>
             <td style="padding-right:15px;">
-              <img src="https://anrufprofi.de/assets/klara-signatur.png" alt="Klara" width="80" style="border-radius:12px;">
+              <img src="https://anrufprofi.de/Fotos/signatur.png" alt="Klara" width="80" style="border-radius:12px;">
             </td>
             <td>
               <strong style="font-size:16px; color:#007aff;">Klara | KI-Assistentin</strong><br>
