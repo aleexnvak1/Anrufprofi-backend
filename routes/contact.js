@@ -32,39 +32,32 @@ router.post('/', async (req, res) => {
     });
 
     const htmlContent = `
-      <div style="font-family:'Plus Jakarta Sans', sans-serif; color:#333; max-width:600px; margin:0 auto;">
-        <div style="background-color:#007aff; padding:24px; text-align:center; color:white; border-radius:10px 10px 0 0;">
-          <h2 style="margin:0;">🎉 Danke für deine Anfrage!</h2>
+      <div style="font-family:'Plus Jakarta Sans', sans-serif; color:#333; max-width:600px; margin:0 auto; text-align:center;">
+
+        <div style="background-color:#007aff; padding:20px 30px; color:white; border-radius:10px 10px 0 0;">
+          <h2 style="margin:0; font-size:22px;">Vielen Dank für deine Anfrage, ${name}!</h2>
         </div>
-        <div style="padding:24px; background-color:#ffffff; border:1px solid #eee;">
-          <p>Hallo ${name},</p>
-          <p>vielen Dank für deine Nachricht:</p>
-          <blockquote style="margin: 10px 0; padding: 10px; background-color: #f8f8f8; border-left: 4px solid #18CB96;">
+
+        <div style="padding:30px; background-color:#ffffff; border:1px solid #eee; border-top:none;">
+
+          <p style="font-size:16px; margin-bottom:20px;">
+            Wir haben deine Nachricht erhalten und melden uns so schnell wie möglich bei dir zurück.
+          </p>
+
+          <h3 style="font-size:18px; color:#18CB96; margin-top:30px;">📝 Deine Nachricht:</h3>
+          <blockquote style="margin: 20px auto; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #18CB96; text-align:left;">
             ${message}
           </blockquote>
-          <p>Unser Team meldet sich <strong>innerhalb von 24 Stunden</strong> bei dir.</p>
-          <p style="margin-top:20px;">
-            <a href="https://www.anrufprofi.de#demo" style="display:inline-block; padding:12px 20px; background-color:#18CB96; color:white; text-decoration:none; border-radius:8px;">
-              📅 Jetzt Demo buchen
-            </a>
+
+          <p style="font-size:15px; margin-top:30px;">
+            Bis bald – dein Team von <strong>anrufprofi.de</strong> 👋
           </p>
-          <p>Viele Grüße<br><strong>Klara</strong> – deine KI-Assistentin 🤖</p>
         </div>
-        <div style="padding:16px; background:#f7f7f7; text-align:center;">
-          <table style="margin:auto; text-align:left;">
-            <tr>
-              <td style="padding-right:15px;">
-                <img src="https://anrufprofi-backend.onrender.com/Fotos/signatur.png" alt="Klara" width="100" style="border-radius:12px;">
-              </td>
-              <td>
-                <strong style="font-size:16px; color:#007aff;">Klara | KI-Assistentin</strong><br>
-                <span style="font-size:14px;">anrufprofi.de – Dein Telefonservice für Handwerksbetriebe</span><br><br>
-                📧 <a href="mailto:klara@anrufprofi.de" style="color:#18CB96;">klara@anrufprofi.de</a><br>
-                🌐 <a href="https://www.anrufprofi.de" style="color:#18CB96;">www.anrufprofi.de</a>
-              </td>
-            </tr>
-          </table>
+
+        <div style="padding:20px 0; background-color:#f7f7f7; border-top:1px solid #eee;">
+          <img src="https://anrufprofi-backend.onrender.com/Fotos/signatur.png" alt="Klara Signatur" style="width:auto; max-width:100%; height:auto; display:block; margin:0 auto;">
         </div>
+
       </div>
     `;
 
