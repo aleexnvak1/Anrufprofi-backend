@@ -7,8 +7,6 @@
   <!-- Tailwind -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body class="bg-gradient-to-b from-blue-50 to-white min-h-screen flex flex-col justify-between">
 
@@ -45,7 +43,7 @@
 
       <!-- Testaudio -->
       <div class="flex flex-col items-center mt-8 gap-2">
-        <button onclick="document.getElementById('audioPlayer').play()" class="flex items-center gap-2 border border-blue-400 text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-50">
+        <button type="button" onclick="document.getElementById('audioPlayer').play()" class="flex items-center gap-2 border border-blue-400 text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-50">
           <i class="bi bi-play-circle"></i> Testgespräch anhören
         </button>
         <audio id="audioPlayer" src="Fotos/Lahnau.m4a"></audio>
@@ -62,27 +60,27 @@
   </footer>
 
   <script>
-    // --- Supabase Config ---
-    const supabase = supabase.createClient(
-      'https://deine-supabase-url.supabase.co',
-      'public-anon-key'
-    );
-
+    // Demo-Form an dein eigenes Backend senden!
     const form = document.getElementById('demoForm');
     const confirmation = document.getElementById('confirmation');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
-      // Fix Datumsfeld (leer = null)
       if (!data.preferred_time) data.preferred_time = null;
+
       try {
-        const { error } = await supabase.from('demo_requests').insert([data]);
-        if (error) throw error;
+        const res = await fetch('/api/demo-requests', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error || 'Unbekannter Fehler');
         form.classList.add('hidden');
         confirmation.classList.remove('hidden');
       } catch (err) {
-        alert("Es gab ein Problem. Bitte probiere es nochmal.");
+        alert('Es gab ein Problem. Bitte probiere es nochmal.');
         console.error(err);
       }
     });
