@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Klara – Dein KI-Anrufassistent für Handwerker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- TailwindCSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Icons (Bootstrap) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- SwiperJS für Sliders -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <style>
+    .slide-up {
+      animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes slideUp {
+      0% { transform: translateY(40px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+
+  <!-- Hero Section -->
+  <section class="flex flex-col-reverse lg:flex-row items-center justify-between px-6 py-12 lg:px-24 bg-white shadow-lg slide-up">
+    <div class="w-full lg:w-2/3">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-blue-700">Verpasse nie wieder einen Kundenanruf!</h1>
+      <p class="text-xl mb-2 font-semibold text-gray-700">Dein persönlicher <span class="text-blue-500">KI-Anrufassistent „Klara“</span> ist 24/7 für dich da – speziell für Handwerksbetriebe & kleine Unternehmen.</p>
+      <p class="mb-6 text-gray-500">Automatischer Empfang, Terminvereinbarung, Infos aufnehmen, alles DSGVO-konform – <span class="font-semibold">ohne Stress für dein Team!</span></p>
+      <a href="#kontakt" class="bg-blue-600 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-700 font-semibold transition">Demo anfordern</a>
+    </div>
+    <div class="w-full lg:w-1/3 flex justify-center mb-8 lg:mb-0">
+      <!-- Klara Bild (ersetzen durch dein Bild) -->
+      <img src="ChatGPT Image 13. Juli 2025, 21_07_49.png" alt="Klara KI-Visual" class="rounded-3xl w-64 h-64 shadow-2xl border-4 border-blue-200 object-cover">
+    </div>
+  </section>
+
+  <!-- So funktioniert’s -->
+  <section class="max-w-5xl mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold mb-8 text-center text-blue-700">So funktioniert’s</h2>
+    <div class="grid md:grid-cols-4 gap-8">
+      <div class="flex flex-col items-center slide-up">
+        <i class="bi bi-telephone-inbound-fill text-blue-500 text-4xl mb-2"></i>
+        <h3 class="font-bold mb-1">Anruf</h3>
+        <p class="text-center text-gray-500">Kunde ruft deine Nummer an oder wird zu Klara weitergeleitet.</p>
+      </div>
+      <div class="flex flex-col items-center slide-up" style="animation-delay:0.1s;">
+        <i class="bi bi-person-lines-fill text-blue-500 text-4xl mb-2"></i>
+        <h3 class="font-bold mb-1">Klara nimmt an</h3>
+        <p class="text-center text-gray-500">Klara begrüßt, nimmt Anliegen auf und kann direkt Termine koordinieren.</p>
+      </div>
+      <div class="flex flex-col items-center slide-up" style="animation-delay:0.2s;">
+        <i class="bi bi-clipboard-data text-blue-500 text-4xl mb-2"></i>
+        <h3 class="font-bold mb-1">Info in Echtzeit</h3>
+        <p class="text-center text-gray-500">Du bekommst die Infos direkt aufs Handy, E-Mail oder ins Dashboard.</p>
+      </div>
+      <div class="flex flex-col items-center slide-up" style="animation-delay:0.3s;">
+        <i class="bi bi-chat-dots-fill text-blue-500 text-4xl mb-2"></i>
+        <h3 class="font-bold mb-1">Feedback</h3>
+        <p class="text-center text-gray-500">Gib Feedback zu Klaras Gespräch & helfe ihr, noch besser zu werden.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vorteile -->
+  <section class="bg-blue-50 py-16">
+    <h2 class="text-3xl font-bold mb-8 text-center text-blue-700">Deine Vorteile mit Klara</h2>
+    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+      <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center slide-up">
+        <i class="bi bi-clock-history text-3xl text-blue-500 mb-3"></i>
+        <h4 class="font-bold mb-2">Immer erreichbar (24/7)</h4>
+        <p class="text-gray-500 text-center">Kein verpasster Anruf, egal ob Feiertag oder Feierabend.</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center slide-up" style="animation-delay:0.1s;">
+        <i class="bi bi-emoji-smile text-3xl text-blue-500 mb-3"></i>
+        <h4 class="font-bold mb-2">Professioneller Empfang</h4>
+        <p class="text-gray-500 text-center">Jeder Kunde wird freundlich & kompetent begrüßt – immer mit deinem Namen.</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center slide-up" style="animation-delay:0.2s;">
+        <i class="bi bi-gear-wide-connected text-3xl text-blue-500 mb-3"></i>
+        <h4 class="font-bold mb-2">Zeitsparend & flexibel</h4>
+        <p class="text-gray-500 text-center">Du und dein Team habt mehr Zeit für’s Wesentliche.</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center slide-up" style="animation-delay:0.3s;">
+        <i class="bi bi-shield-check text-3xl text-blue-500 mb-3"></i>
+        <h4 class="font-bold mb-2">DSGVO-konform</h4>
+        <p class="text-gray-500 text-center">Sichere, datenschutzkonforme Gesprächsführung. Einwilligung beim Anruf!</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center slide-up" style="animation-delay:0.4s;">
+        <i class="bi bi-sliders text-3xl text-blue-500 mb-3"></i>
+        <h4 class="font-bold mb-2">Individuell anpassbar</h4>
+        <p class="text-gray-500 text-center">Vom Begrüßungstext bis zu Workflows – Klara passt sich deinem Unternehmen an.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof / Über uns -->
+  <section class="py-16 max-w-4xl mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-8 text-center text-blue-700">Wer steckt dahinter?</h2>
+    <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
+      <img src="ChatGPT Image 13. Juli 2025, 21_07_49.png" class="w-32 h-32 rounded-full shadow-xl border-2 border-blue-200" alt="Klara Illustration">
+      <div>
+        <p class="font-semibold mb-2">Alexander Novakovskij – Handwerker & Gründer von Klara</p>
+        <p class="text-gray-500">„Als Handwerker weiß ich, wie wertvoll jeder Anruf ist – und wie oft sie im Alltag untergehen. Mit Klara lösen wir das Problem endlich für kleine Betriebe!“</p>
+      </div>
+    </div>
+    <!-- Kundenstimmen / Siegel -->
+    <div class="mt-12">
+      <h3 class="text-xl font-semibold text-blue-600 mb-4">Kundenstimmen</h3>
+      <div class="swiper-container" id="testimonialSlider">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide bg-white rounded-xl shadow-md p-6 mx-2 flex flex-col items-center">
+            <p class="italic text-gray-700">„Klara hat unser Büro total entlastet – keine verpassten Aufträge mehr!“</p>
+            <span class="mt-2 text-sm text-blue-600 font-bold">– Malermeister Wagner</span>
+          </div>
+          <div class="swiper-slide bg-white rounded-xl shadow-md p-6 mx-2 flex flex-col items-center">
+            <p class="italic text-gray-700">„Sehr professionell, persönlich und super easy. 100% Empfehlung!“</p>
+            <span class="mt-2 text-sm text-blue-600 font-bold">– Elektro Weber</span>
+          </div>
+          <div class="swiper-slide bg-white rounded-xl shadow-md p-6 mx-2 flex flex-col items-center">
+            <p class="italic text-gray-700">„Klara klingt fast wie eine echte Kollegin. Kunden sind begeistert.“</p>
+            <span class="mt-2 text-sm text-blue-600 font-bold">– Sanitär Krüger</span>
+          </div>
+        </div>
+        <!-- Swiper Pagination -->
+        <div class="swiper-pagination mt-4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live-Demo -->
+  <section class="bg-white py-16">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold mb-4 text-blue-700">So klingt Klara am Telefon</h2>
+        <audio controls class="mb-4 w-full">
+          <source src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfa9c93.mp3" type="audio/mp3">
+          Dein Browser unterstützt keine Audio-Wiedergabe.
+        </audio>
+        <img src="ChatGPT Image 13. Juli 2025, 21_07_49.png" class="w-40 h-40 rounded-full border-4 border-blue-100 shadow-lg mx-auto" alt="Klara Telefoniert">
+      </div>
+      <div class="w-full md:w-1/3">
+        <h3 class="text-xl font-bold mb-3 text-blue-600">Dashboard-Einblick</h3>
+        <img src="https://placehold.co/400x220?text=Dashboard+Mockup" alt="Dashboard Mockup" class="rounded-2xl shadow-xl border border-blue-100">
+      </div>
+    </div>
+  </section>
+
+  <!-- Preise -->
+  <section class="py-16 bg-blue-50">
+    <h2 class="text-3xl font-bold text-center text-blue-700 mb-10">Preise & Pakete</h2>
+    <div class="flex flex-col md:flex-row gap-8 justify-center items-stretch max-w-5xl mx-auto">
+      <div class="flex-1 bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center">
+        <h4 class="text-lg font-bold mb-2">Starter</h4>
+        <span class="text-3xl font-extrabold mb-2">99 €/Monat</span>
+        <p class="mb-4 text-gray-500">100 Minuten inkl.</p>
+        <ul class="mb-6 text-gray-700 space-y-1">
+          <li><i class="bi bi-check-circle text-blue-500"></i> Persönliche Begrüßung</li>
+          <li><i class="bi bi-check-circle text-blue-500"></i> 24/7 Erreichbarkeit</li>
+          <li><i class="bi bi-check-circle text-blue-500"></i> DSGVO-konform</li>
+        </ul>
+        <a href="#kontakt" class="bg-blue-500 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow transition font-semibold">Jetzt starten</a>
+      </div>
+      <div class="flex-1 bg-blue-700 text-white rounded-2xl shadow-xl p-8 flex flex-col items-center border-4 border-blue-400 scale-105 z-10 relative">
+        <h4 class="text-lg font-bold mb-2">Basic</h4>
+        <span class="text-3xl font-extrabold mb-2">199 €/Monat</span>
+        <p class="mb-4">250 Minuten inkl.</p>
+        <ul class="mb-6 space-y-1">
+          <li><i class="bi bi-check-circle"></i> Alles aus Starter</li>
+          <li><i class="bi bi-check-circle"></i> Eigene Nummer</li>
+          <li><i class="bi bi-check-circle"></i> Dashboard-Statistiken</li>
+        </ul>
+        <a href="#kontakt" class="bg-white hover:bg-blue-200 text-blue-700 px-5 py-2 rounded-lg shadow transition font-semibold">Beratung buchen</a>
+      </div>
+      <div class="flex-1 bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center">
+        <h4 class="text-lg font-bold mb-2">Pro+</h4>
+        <span class="text-3xl font-extrabold mb-2">499 €/Monat</span>
+        <p class="mb-4 text-gray-500">700 Minuten inkl.</p>
+        <ul class="mb-6 text-gray-700 space-y-1">
+          <li><i class="bi bi-check-circle text-blue-500"></i> Alles aus Basic</li>
+          <li><i class="bi bi-check-circle text-blue-500"></i> Premium-Support</li>
+          <li><i class="bi bi-check-circle text-blue-500"></i> Mehrere Standorte</li>
+        </ul>
+        <a href="#kontakt" class="bg-blue-500 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow transition font-semibold">Individuelles Angebot</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bewertungen -->
+  <section class="max-w-4xl mx-auto py-16 px-4" id="bewertungen">
+    <h2 class="text-3xl font-bold text-center text-blue-700 mb-8">Echte Bewertungen</h2>
+    <div id="reviewSlider" class="swiper-container">
+      <div class="swiper-wrapper" id="reviews-wrapper">
+        <!-- Bewertungen werden dynamisch eingefügt -->
+      </div>
+      <div class="swiper-pagination mt-4"></div>
+    </div>
+    <div class="mt-10 flex flex-col md:flex-row gap-6 items-center justify-center">
+      <form id="reviewForm" class="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-3">
+        <h4 class="font-bold mb-2 text-blue-700">Eigene Bewertung abgeben</h4>
+        <input type="text" id="reviewName" class="border rounded p-2" placeholder="Dein Name" required>
+        <textarea id="reviewText" class="border rounded p-2" placeholder="Was hat dir gefallen?" required></textarea>
+        <div class="flex items-center space-x-2">
+          <label class="font-semibold text-gray-600">Bewertung:</label>
+          <div id="starRating" class="flex">
+            <!-- Sterne werden per Script generiert -->
+          </div>
+        </div>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">Absenden</button>
+      </form>
+      <img src="ChatGPT Image 13. Juli 2025, 21_07_49.png" class="w-32 h-32 rounded-full border-4 border-blue-100 shadow-lg" alt="Klara Bewertungs-Visual">
+    </div>
+  </section>
+
+  <!-- Kontaktformular -->
+  <section class="py-16 bg-white" id="kontakt">
+    <h2 class="text-3xl font-bold text-center text-blue-700 mb-8">Kontakt aufnehmen / Demo buchen</h2>
+    <form class="max-w-lg mx-auto bg-blue-50 rounded-2xl shadow-lg p-8 flex flex-col gap-4">
+      <input type="text" required placeholder="Dein Name" class="p-3 rounded-lg border">
+      <input type="text" required placeholder="Firma" class="p-3 rounded-lg border">
+      <input type="tel" required placeholder="Telefonnummer" class="p-3 rounded-lg border">
+      <textarea required placeholder="Anliegen / Wunsch" class="p-3 rounded-lg border"></textarea>
+      <button class="bg-blue-700 hover:bg-blue-900 text-white py-3 rounded-xl font-semibold transition">Demo anfordern</button>
+    </form>
+  </section>
+
+  <!-- FAQ -->
+  <section class="max-w-5xl mx-auto py-16 px-4">
+    <h2 class="text-3xl font-bold mb-8 text-center text-blue-700">FAQ – Häufige Fragen</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Muss ich meine Technik umstellen?</h4>
+        <p class="text-gray-500 mb-4">Nein, du kannst einfach deine Nummer auf Klara weiterleiten oder direkt eine Klara-Nummer nutzen.</p>
+        <h4 class="font-semibold text-lg mb-2">Ist das DSGVO-konform?</h4>
+        <p class="text-gray-500 mb-4">Ja! Klara fragt immer vorab nach deiner Einwilligung und speichert Daten sicher.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Wie schnell geht die Einrichtung?</h4>
+        <p class="text-gray-500 mb-4">In wenigen Minuten ist alles startklar. Wir begleiten dich Schritt für Schritt!</p>
+        <h4 class="font-semibold text-lg mb-2">Für wen ist Klara geeignet?</h4>
+        <p class="text-gray-500 mb-4">Ideal für Handwerker, Dienstleister und kleine Unternehmen, die keine Anrufe mehr verpassen wollen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-blue-800 text-blue-100 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div>
+        <div class="font-bold text-xl mb-2">Klara – KI-Anrufassistent</div>
+        <div class="text-sm text-blue-200">by Alexander Novakovskij<br>Impressum · Datenschutz · <a href="#kontakt" class="underline text-blue-100">Kontakt</a></div>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="text-blue-100 hover:text-blue-300 text-2xl"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="text-blue-100 hover:text-blue-300 text-2xl"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="text-blue-100 hover:text-blue-300 text-2xl"><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Sticky CTA -->
+  <a href="#kontakt" class="fixed bottom-6 right-6 z-50 bg-blue-700 hover:bg-blue-800 text-white px-5 py-3 rounded-full shadow-2xl text-lg font-semibold transition slide-up">
+    Demo sichern <i class="bi bi-arrow-right-circle ml-2"></i>
+  </a>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Bewertungen Slider (Swiper)
+    var reviewSwiper = new Swiper('#reviewSlider', {
+      loop: true,
+      slidesPerView: 1,
+      spaceBetween: 16,
+      autoplay: { delay: 6500 },
+      pagination: { el: '.swiper-pagination', clickable: true }
+    });
+
+    // Testimonials Slider
+    var testimonialSwiper = new Swiper('#testimonialSlider', {
+      loop: true,
+      slidesPerView: 1,
+      spaceBetween: 24,
+      autoplay: { delay: 6000 },
+      pagination: { el: '.swiper-pagination', clickable: true }
+    });
+
+    // Sterne-Bewertung
+    const starRating = document.getElementById('starRating');
+    let rating = 0;
+    for (let i = 1; i <= 5; i++) {
+      let star = document.createElement('i');
+      star.className = 'bi bi-star text-yellow-400 text-2xl cursor-pointer';
+      star.addEventListener('mouseover', () => highlightStars(i));
+      star.addEventListener('mouseout', () => highlightStars(rating));
+      star.addEventListener('click', () => { rating = i; highlightStars(i); });
+      starRating.appendChild(star);
+    }
+    function highlightStars(count) {
+      Array.from(starRating.children).forEach((star, i) => {
+        star.className = i < count ? 'bi bi-star-fill text-yellow-400 text-2xl' : 'bi bi-star text-yellow-400 text-2xl';
+      });
+    }
+
+    // Bewertungen speichern & anzeigen (localStorage)
+    const reviewForm = document.getElementById('reviewForm');
+    const reviewsWrapper = document.getElementById('reviews-wrapper');
+    function loadReviews() {
+      const reviews = JSON.parse(localStorage.getItem('klara-reviews') || '[]');
+      reviewsWrapper.innerHTML = '';
+      reviews.forEach(r => {
+        let slide = document.createElement('div');
+        slide.className = 'swiper-slide bg-blue-50 rounded-xl shadow p-6 flex flex-col items-center';
+        slide.innerHTML = `<div class="flex mb-2">${'<i class="bi bi-star-fill text-yellow-400"></i>'.repeat(r.rating)}</div>
+                           <p class="italic text-gray-700">${r.text}</p>
+                           <span class="mt-2 text-sm text-blue-600 font-bold">– ${r.name}</span>`;
+        reviewsWrapper.appendChild(slide);
+      });
+      reviewSwiper.update();
+    }
+    loadReviews();
+
+    reviewForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('reviewName').value.trim();
+      const text = document.getElementById('reviewText').value.trim();
+      if (!name || !text || rating === 0) return alert('Bitte alles ausfüllen und bewerten!');
+      const reviews = JSON.parse(localStorage.getItem('klara-reviews') || '[]');
+      reviews.push({ name, text, rating });
+      localStorage.setItem('klara-reviews', JSON.stringify(reviews));
+      reviewForm.reset();
+      rating = 0;
+      highlightStars(0);
+      loadReviews();
+      alert('Vielen Dank für dein Feedback!');
+    });
+  </script>
+</body>
+</html>

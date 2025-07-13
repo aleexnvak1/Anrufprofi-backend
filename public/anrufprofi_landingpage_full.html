@@ -41,46 +41,43 @@
   
 
 <!-- NAVBAR -->
-<header class="bg-white border-b shadow-sm sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-    <!-- Left: Logo and Links -->
-    <div class="flex items-center space-x-6">
-      <span class="text-primary font-bold text-xl">Klara</span>
-      <nav class="hidden md:flex space-x-4 text-sm font-medium">
-        <a href="#start" class="hover:text-primary">Start</a>
-        <a href="#vorteile" class="hover:text-primary">Vorteile</a>
-        <a href="#kosten" class="hover:text-primary">Kosten</a>
-        <a href="kontakt.html" class="hover:text-primary">Kontakt & FAQ</a>
-      </nav>
+<nav class="bg-white shadow-lg sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
+    <!-- Logo -->
+    <div class="flex items-center space-x-3">
+      <img src="Fotos/KLARA.svg" alt="Klara Logo" class="w-8 h-8">
+      <span class="font-extrabold text-primary text-xl tracking-tight">anrufprofi.de</span>
     </div>
-    <!-- Right: Buttons -->
-    <div class="hidden md:flex items-center space-x-4">
-      <a href="#demo" class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-600 text-sm">Demo vereinbaren</a>
-      <a href="#gespraech" class="border border-primary text-primary px-4 py-2 rounded hover:bg-appleblue text-sm">Gespräch vereinbaren</a>
+    <!-- Desktop Nav Links -->
+    <div class="hidden md:flex space-x-8 font-medium">
+      <a href="#start" class="hover:text-primary transition">Start</a>
+      <a href="#funktioniert" class="hover:text-primary transition">So funktioniert’s</a>
+      <a href="#vorteile" class="hover:text-primary transition">Vorteile</a>
+      <a href="#preise" class="hover:text-primary transition">Preise</a>
+      <a href="#kontakt" class="hover:text-primary transition">Kontakt</a>
+    </div>
+    <!-- Call to Action Button -->
+    <div class="hidden md:flex">
+      <a href="#demo" class="ml-6 bg-primary text-white px-5 py-2 rounded-xl hover:bg-blue-600 transition font-semibold shadow">Demo vereinbaren</a>
     </div>
     <!-- Mobile Menu Button -->
-    <div class="md:hidden flex items-center">
-      <a href="#demo" class="bg-primary text-white px-3 py-1 rounded mr-2 text-sm">Demo</a>
-      <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-             viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
-    </div>
+    <button id="mobileMenuBtn" class="md:hidden flex items-center px-2 py-2 text-gray-700 focus:outline-none">
+      <i class="bi bi-list text-3xl"></i>
+    </button>
   </div>
   <!-- Mobile Dropdown -->
-  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
-    <div class="px-4 py-4 space-y-2">
-      <a href="#start" class="block text-gray-700 hover:text-primary">Start</a>
-      <a href="#vorteile" class="block text-gray-700 hover:text-primary">Vorteile</a>
-      <a href="#kosten" class="block text-gray-700 hover:text-primary">Kosten</a>
-      <a href="kontakt.html" class="block text-gray-700 hover:text-primary">Kontakt & FAQ</a>
-      <a href="#demo" class="block bg-primary text-white px-4 py-2 rounded text-center hover:bg-blue-600">Demo vereinbaren</a>
-      <a href="#gespraech" class="block border border-primary text-primary px-4 py-2 rounded text-center hover:bg-appleblue">Gespräch vereinbaren</a>
+  <div id="mobileMenu" class="md:hidden hidden bg-white border-t border-gray-200 animate__animated animate__fadeInDown">
+    <div class="flex flex-col space-y-3 px-6 py-4 text-lg">
+      <a href="#start" class="hover:text-primary">Start</a>
+      <a href="#funktioniert" class="hover:text-primary">So funktioniert’s</a>
+      <a href="#vorteile" class="hover:text-primary">Vorteile</a>
+      <a href="#preise" class="hover:text-primary">Preise</a>
+      <a href="#kontakt" class="hover:text-primary">Kontakt</a>
+      <a href="#demo" class="bg-primary text-white px-4 py-2 mt-2 rounded-xl hover:bg-blue-600 transition text-center shadow">Demo vereinbaren</a>
     </div>
   </div>
-</header>
+</nav>
+
 
 <!-- HERO SECTION -->
 <section id="start" class="header relative overflow-hidden">
@@ -120,16 +117,62 @@
   </div>
 </section>
 
-<div class="flex flex-col items-center space-y-4">
-  <a href="tel:+491234567890" class="bg-primary text-white px-6 py-3 rounded-xl hover:bg-blue-600 text-lg">
-    <i class="bi bi-telephone-fill mr-2"></i>Jetzt anrufen
-  </a>
+<div class="w-full max-w-sm mx-auto flex flex-col items-center gap-6 bg-white rounded-2xl shadow-md p-8">
+  <!-- Headline -->
+  <h3 class="text-xl font-bold text-gray-900 text-center">
+    Klara live erleben – Jetzt testen!
+  </h3>
+  
+  <!-- Minimaler Audio-Player -->
+  <div class="w-full flex flex-col items-center gap-2">
+    <audio id="klaraAudio" src="Fotos/Lahnau.m4a"></audio>
+    <button 
+      id="playBtn"
+      type="button"
+      class="rounded-full bg-blue-100 p-3 hover:bg-blue-200 transition"
+      aria-label="Testgespräch abspielen"
+    >
+      <i id="playIcon" class="bi bi-play-circle text-3xl text-blue-600"></i>
+    </button>
+    <span class="text-xs text-gray-400">Testgespräch anhören</span>
+  </div>
 
-  <audio id="audioPlayer" src="Fotos/Lahnau.m4a"></audio>
-  <button onclick="document.getElementById('audioPlayer').play()" class="border border-primary text-primary px-6 py-3 rounded-xl hover:bg-white text-lg">
-    <i class="bi bi-play-circle-fill mr-2"></i>Testgespräch anhören
-  </button>
+  <!-- Divider -->
+  <div class="w-full border-t border-gray-200 my-2"></div>
+
+  <!-- Call Button -->
+  <a 
+    href="tel:+491234567890" 
+    class="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-blue-700 text-white font-semibold text-lg hover:bg-blue-800 transition"
+  >
+    <i class="bi bi-telephone-fill"></i>
+    Jetzt anrufen
+  </a>
 </div>
+
+<script>
+  const audio = document.getElementById('klaraAudio');
+  const playBtn = document.getElementById('playBtn');
+  const playIcon = document.getElementById('playIcon');
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      playIcon.classList.remove('bi-play-circle');
+      playIcon.classList.add('bi-pause-circle');
+    } else {
+      audio.pause();
+      playIcon.classList.remove('bi-pause-circle');
+      playIcon.classList.add('bi-play-circle');
+    }
+  });
+
+  audio.addEventListener('ended', () => {
+    playIcon.classList.remove('bi-pause-circle');
+    playIcon.classList.add('bi-play-circle');
+  });
+</script>
+
 <!-- SECTION 3 – Die häufigsten Anrufe -->
 <section id="anrufe" class="py-20 bg-white text-center">
   <h2 class="text-l md:text-xl mb-12" style="color: oklch(62.3% 0.214 259.815);">
@@ -173,42 +216,70 @@
 
   </div>
 </section>
-<!-- SECTION 4 – So funktioniert Klara -->
-<section id="funktion" class="bg-oklch(62.3% 0.214 259.815) py-20">
-  <div class="max-w-6xl mx-auto px-4 text-center">
-<h2 class="text-l md:text-xl mb-12" style="color: oklch(62.3% 0.214 259.815);">
-  So funktionierts!
-</h2>
-    <h2 class="text-3xl md:text-4xl font-bold mb-12">Wie funktioniert Klara?</h2>
-    <div class="grid md:grid-cols-4 gap-8">
+<!-- SECTION 4 – So funktioniert Klara (mit Texten und perfektem Card-Layout) -->
+<section id="funktion" class="bg-gradient-to-b from-white to-blue-50 py-20">
+  <div class="max-w-5xl mx-auto px-4 text-center">
+    <h2 class="text-lg md:text-xl font-semibold tracking-wide mb-3 text-primary">So läuft’s ab</h2>
+    <h3 class="text-3xl md:text-4xl font-extrabold mb-14 text-gray-900">Wie arbeitet Klara für dich?</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
-      <div class="bg-white shadow-2xl rounded-lg p-6">
-        <div class="text-primary text-4xl mb-4"><i class="bi bi-telephone-inbound-fill"></i></div>
-        <h3 class="text-lg font-semibold mb-2">1. Anruf wird weitergeleitet</h3>
-        <p>Die Kundenanrufe werden automatisch an Klara weitergeleitet – z. B. nach 3-mal Klingeln oder außerhalb der Öffnungszeiten.</p>
+      <!-- Step 1 -->
+      <div class="relative flex flex-col h-full bg-white rounded-2xl shadow-xl p-8 group transition hover:shadow-2xl hover:-translate-y-1 duration-300">
+        <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 flex items-center justify-center rounded-full bg-primary text-white text-2xl font-bold shadow-md ring-4 ring-white">1</div>
+        <div class="mt-8 mb-4 text-primary text-4xl"><i class="bi bi-telephone-inbound-fill"></i></div>
+        <h4 class="text-xl font-semibold mb-2">Anrufweiterleitung</h4>
+        <p class="text-gray-600 text-base leading-relaxed flex-1">
+          Die Anbindung von Klara ist kinderleicht: Deine Telefonanlage oder FRITZ!Box leitet Anrufe an Klaras Nummer weiter. Du bestimmst, z.&nbsp;B. nach dreimaligem Klingeln. Kein technischer Schnickschnack – in weniger als fünf Minuten startklar!
+        </p>
       </div>
 
-      <div class="bg-white shadow-2xl rounded-lg p-6">
-        <div class="text-primary text-4xl mb-4"><i class="bi bi-person-lines-fill"></i></div>
-        <h3 class="text-lg font-semibold mb-2">2. Klara nimmt das Gespräch an</h3>
-        <p>Klara begrüßt den Anrufer freundlich, fragt gezielt nach dem Anliegen und dokumentiert alle wichtigen Infos.</p>
+      <!-- Step 2 -->
+      <div class="relative flex flex-col h-full bg-white rounded-2xl shadow-xl p-8 group transition hover:shadow-2xl hover:-translate-y-1 duration-300">
+        <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 flex items-center justify-center rounded-full bg-primary text-white text-2xl font-bold shadow-md ring-4 ring-white">2</div>
+        <div class="mt-8 mb-4 text-primary text-4xl"><i class="bi bi-person-lines-fill"></i></div>
+        <h4 class="text-xl font-semibold mb-2">Klara geht ran</h4>
+        <p class="text-gray-600 text-base leading-relaxed flex-1">
+          Klara nimmt jeden Anruf rund um die Uhr professionell entgegen, qualifiziert die Anfrage nach deinen Vorgaben und sammelt alle relevanten Informationen, wie die Kontaktdaten des Anrufers.
+        </p>
       </div>
 
-      <div class="bg-white shadow-2xl rounded-lg p-6">
-        <div class="text-primary text-4xl mb-4"><i class="bi bi-clipboard-check"></i></div>
-        <h3 class="text-lg font-semibold mb-2">3. Anliegen wird ausgewertet</h3>
-        <p>Das Anliegen wird sofort klassifiziert: z.B. Terminwunsch, Rückrufbitte oder Notfall – und individuell verarbeitet.</p>
+      <!-- Step 3 -->
+      <div class="relative flex flex-col h-full bg-white rounded-2xl shadow-xl p-8 group transition hover:shadow-2xl hover:-translate-y-1 duration-300">
+        <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 flex items-center justify-center rounded-full bg-primary text-white text-2xl font-bold shadow-md ring-4 ring-white">3</div>
+        <div class="mt-8 mb-4 text-primary text-4xl"><i class="bi bi-envelope-check"></i></div>
+        <h4 class="text-xl font-semibold mb-2">Benachrichtigung</h4>
+        <p class="text-gray-600 text-base leading-relaxed flex-1">
+          Nach jedem Anruf erhältst du eine E-Mail mit allen wichtigen Informationen inklusive eines genauen Gesprächstranskripts. So bist du immer bestens informiert und hast alles im Blick!
+        </p>
       </div>
 
-      <div class="bg-white shadow-2xl rounded-lg p-6">
-        <div class="text-primary text-4xl mb-4"><i class="bi bi-envelope-check-fill"></i></div>
-        <h3 class="text-lg font-semibold mb-2">4. Du erhältst das Ergebnis</h3>
-        <p>Du bekommst direkt eine Benachrichtigung per E-Mail, WhatsApp oder im Dashboard – inkl. Gesprächszusammenfassung.</p>
+      <!-- Step 4 -->
+      <div class="relative flex flex-col h-full bg-white rounded-2xl shadow-xl p-8 group transition hover:shadow-2xl hover:-translate-y-1 duration-300">
+        <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 flex items-center justify-center rounded-full bg-primary text-white text-2xl font-bold shadow-md ring-4 ring-white">4</div>
+        <div class="mt-8 mb-4 text-primary text-4xl"><i class="bi bi-emoji-smile"></i></div>
+        <h4 class="text-xl font-semibold mb-2">Feedback & Anpassung</h4>
+        <p class="text-gray-600 text-base leading-relaxed flex-1">
+          Mit wenigen Klicks gibst du Klara Feedback zu ihren Anrufen. Sie lernt aus jeder Rückmeldung und passt sich noch besser an deinen Betrieb an. Im Web-Dashboard kannst du Begrüßungen, Öffnungszeiten und Aufgaben individuell einstellen.
+        </p>
       </div>
 
     </div>
+
+    <!-- DSGVO & KI-Lernen Badge -->
+    <div class="mt-10 flex items-center justify-center gap-3 text-xs text-gray-400">
+      <span class="inline-flex items-center px-3 py-1 bg-primary/10 rounded-full">
+        <i class="bi bi-shield-lock-fill mr-1 text-primary"></i>
+        DSGVO-konform
+      </span>
+      <span class="inline-flex items-center px-3 py-1 bg-primary/10 rounded-full">
+        <i class="bi bi-lightning-charge-fill mr-1 text-primary"></i>
+        Klara lernt durch Feedback
+      </span>
+    </div>
   </div>
 </section>
+
+
 <!-- SECTION 5 – Warum nutzen Unternehmen Klara? -->
 <section id="vorteile" class="py-20 bg-gray-50">
   <div class="max-w-6xl mx-auto px-4">
@@ -243,6 +314,113 @@
     </div>
   </div>
 </section>
+<section class="bg-gray-50 py-16">
+  <div class="max-w-5xl mx-auto px-4">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Was kann Klara für dich übernehmen?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Card: Kalendereintrag -->
+      <div class="bg-white rounded-2xl shadow-md p-7 hover:shadow-xl transition group">
+        <div class="flex items-center mb-4">
+          <span class="bg-blue-100 text-blue-600 rounded-xl p-3 mr-3">
+            <i class="bi bi-calendar-event text-2xl"></i>
+          </span>
+          <span class="text-xl font-semibold">Termine eintragen</span>
+        </div>
+        <p class="text-gray-600">Klara trägt auf Wunsch automatisch Termine und Kundendaten in deinen Google- oder Outlook-Kalender ein.</p>
+      </div>
+
+      <!-- Card: WhatsApp Nachricht -->
+      <div class="bg-white rounded-2xl shadow-md p-7 hover:shadow-xl transition group">
+        <div class="flex items-center mb-4">
+          <span class="bg-green-100 text-green-600 rounded-xl p-3 mr-3">
+            <i class="bi bi-whatsapp text-2xl"></i>
+          </span>
+          <span class="text-xl font-semibold">WhatsApp schicken</span>
+        </div>
+        <p class="text-gray-600">Nach jedem Anruf erhältst du oder dein Kunde (auf Wunsch) sofort eine WhatsApp-Nachricht mit den wichtigsten Infos.</p>
+      </div>
+
+      <!-- Card: E-Mail Benachrichtigung -->
+      <div class="bg-white rounded-2xl shadow-md p-7 hover:shadow-xl transition group">
+        <div class="flex items-center mb-4">
+          <span class="bg-yellow-100 text-yellow-600 rounded-xl p-3 mr-3">
+            <i class="bi bi-envelope-open text-2xl"></i>
+          </span>
+          <span class="text-xl font-semibold">E-Mail senden</span>
+        </div>
+        <p class="text-gray-600">Du bekommst jedes Gespräch als E-Mail-Protokoll – inklusive Rückrufnummer, Anliegen und Gesprächszusammenfassung.</p>
+      </div>
+
+      <!-- Card: Persönliche Begrüßung -->
+      <div class="bg-white rounded-2xl shadow-md p-7 hover:shadow-xl transition group">
+        <div class="flex items-center mb-4">
+          <span class="bg-pink-100 text-pink-500 rounded-xl p-3 mr-3">
+            <i class="bi bi-person-heart text-2xl"></i>
+          </span>
+          <span class="text-xl font-semibold">Persönliche Begrüßung</span>
+        </div>
+        <p class="text-gray-600">Klara erkennt wiederkehrende Anrufer und begrüßt sie beim nächsten Mal automatisch mit Namen und individuellem Service.</p>
+      </div>
+
+      <!-- Card: Gesprächsprotokoll & Audio -->
+      <div class="bg-white rounded-2xl shadow-md p-7 hover:shadow-xl transition group">
+        <div class="flex items-center mb-4">
+          <span class="bg-purple-100 text-purple-600 rounded-xl p-3 mr-3">
+            <i class="bi bi-mic-fill text-2xl"></i>
+          </span>
+          <span class="text-xl font-semibold">Anrufprotokoll & Audio</span>
+        </div>
+        <p class="text-gray-600">Alle Gespräche werden auf Wunsch als Text und Audio für dich gespeichert – so verpasst du keine Info mehr.</p>
+      </div>
+
+      <!-- Card: DSGVO & Datenschutz -->
+      <div class="bg-white rounded-2xl shadow-md p-7 hover:shadow-xl transition group">
+        <div class="flex items-center mb-4">
+          <span class="bg-gray-200 text-gray-700 rounded-xl p-3 mr-3">
+            <i class="bi bi-shield-lock text-2xl"></i>
+          </span>
+          <span class="text-xl font-semibold">DSGVO-konform</span>
+        </div>
+        <p class="text-gray-600">Volle Sicherheit: Alle Daten werden DSGVO-konform behandelt. Gesprächsaufzeichnung nur nach Einwilligung!</p>
+      </div>
+
+      <!-- Card: Feedback & KI-Verbesserung -->
+      <div class="bg-white rounded-2xl shadow-md p-7 hover:shadow-xl transition group">
+        <div class="flex items-center mb-4">
+          <span class="bg-cyan-100 text-cyan-600 rounded-xl p-3 mr-3">
+            <i class="bi bi-chat-square-heart text-2xl"></i>
+          </span>
+          <span class="text-xl font-semibold">Feedback & Verbesserung</span>
+        </div>
+        <p class="text-gray-600">Du und deine Kunden können Feedback geben – Klara lernt daraus und wird immer besser im Kundendialog.</p>
+      </div>
+
+      <!-- Card: Anrufweiterleitung -->
+      <div class="bg-white rounded-2xl shadow-md p-7 hover:shadow-xl transition group">
+        <div class="flex items-center mb-4">
+          <span class="bg-orange-100 text-orange-500 rounded-xl p-3 mr-3">
+            <i class="bi bi-arrow-repeat text-2xl"></i>
+          </span>
+          <span class="text-xl font-semibold">Anrufweiterleitung</span>
+        </div>
+        <p class="text-gray-600">Leite einfach deine bestehende Nummer auf Klara um – oder erhalte auf Wunsch eine eigene Klara-Rufnummer.</p>
+      </div>
+
+      <!-- Card: Flexible Anpassung -->
+      <div class="bg-white rounded-2xl shadow-md p-7 hover:shadow-xl transition group">
+        <div class="flex items-center mb-4">
+          <span class="bg-teal-100 text-teal-600 rounded-xl p-3 mr-3">
+            <i class="bi bi-sliders text-2xl"></i>
+          </span>
+          <span class="text-xl font-semibold">Flexibel anpassbar</span>
+        </div>
+        <p class="text-gray-600">Jeder Anruf-Dialog kann individuell auf deine Branche und Wünsche zugeschnitten werden.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Testimonial Card Component – animiert, modern, interaktiv -->
 <div id="testimonial-card" class="max-w-lg mx-auto bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center transition-all duration-500 relative overflow-hidden group">
   <!-- Icon / Symbol oben -->
@@ -277,6 +455,136 @@
   <!-- Like Animation Herz -->
   <div id="like-anim" class="absolute left-1/2 top-1/3 -translate-x-1/2 text-pink-500 text-5xl opacity-0 pointer-events-none transition"></div>
 </div>
+
+<div class="w-full max-w-2xl mx-auto mt-12 bg-white rounded-2xl shadow-lg p-6">
+  <h2 class="text-2xl font-bold mb-8 text-center">Häufige Fragen zu Anrufprofi.de</h2>
+  
+  <div id="faq-accordion">
+    <!-- FAQ Item 1 -->
+    <div class="border-b">
+      <button type="button" class="w-full flex items-center justify-between py-4 text-lg font-semibold text-left focus:outline-none transition" data-faq>
+        <span>Was ist Anrufprofi.de?</span>
+        <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 text-gray-700">
+        Anrufprofi.de ist dein persönlicher KI-Telefonassistent, der alle Anrufe professionell entgegennimmt, Fragen beantwortet und dich sofort informiert.
+      </div>
+    </div>
+    <!-- FAQ Item 2 -->
+    <div class="border-b">
+      <button type="button" class="w-full flex items-center justify-between py-4 text-lg font-semibold text-left focus:outline-none transition" data-faq>
+        <span>Für wen eignet sich Anrufprofi.de?</span>
+        <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 text-gray-700">
+        Für Handwerksbetriebe, Dienstleister und Unternehmen, die keine Kundenanrufe mehr verpassen wollen.
+      </div>
+    </div>
+    <!-- FAQ Item 3 -->
+    <div class="border-b">
+      <button type="button" class="w-full flex items-center justify-between py-4 text-lg font-semibold text-left focus:outline-none transition" data-faq>
+        <span>Muss ich meine Technik umstellen?</span>
+        <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 text-gray-700">
+        Nein, du leitest einfach deine bestehende Nummer auf Klara um – alles andere übernimmt dein Assistent.
+      </div>
+    </div>
+    <!-- FAQ Item 4 -->
+    <div class="border-b">
+      <button type="button" class="w-full flex items-center justify-between py-4 text-lg font-semibold text-left focus:outline-none transition" data-faq>
+        <span>Wie funktioniert die Anrufannahme?</span>
+        <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 text-gray-700">
+        Jeder Anruf wird von Klara angenommen, dokumentiert und (wenn gewünscht) als Text oder Audio ins Dashboard übertragen.
+      </div>
+    </div>
+    <!-- FAQ Item 5 -->
+    <div class="border-b">
+      <button type="button" class="w-full flex items-center justify-between py-4 text-lg font-semibold text-left focus:outline-none transition" data-faq>
+        <span>Wie schnell bekomme ich Bescheid, wenn ein Kunde angerufen hat?</span>
+        <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 text-gray-700">
+        Du wirst auf Wunsch sofort per E-Mail, SMS oder im Dashboard benachrichtigt – mit allen wichtigen Infos zum Anrufer.
+      </div>
+    </div>
+    <!-- FAQ Item 6 -->
+    <div class="border-b">
+      <button type="button" class="w-full flex items-center justify-between py-4 text-lg font-semibold text-left focus:outline-none transition" data-faq>
+        <span>Kann die KI auch Termine buchen?</span>
+        <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 text-gray-700">
+        Ja! Klara kann mit deinem Kalender verknüpft werden und automatisch Termine für dich eintragen.
+      </div>
+    </div>
+    <!-- FAQ Item 7 -->
+    <div class="border-b">
+      <button type="button" class="w-full flex items-center justify-between py-4 text-lg font-semibold text-left focus:outline-none transition" data-faq>
+        <span>Wie sieht es mit Datenschutz aus?</span>
+        <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 text-gray-700">
+        Alle Daten sind DSGVO-konform auf deutschen Servern gespeichert. Nur du hast Zugriff auf Gesprächsinhalte und Protokolle.
+      </div>
+    </div>
+    <!-- FAQ Item 8 -->
+    <div class="border-b">
+      <button type="button" class="w-full flex items-center justify-between py-4 text-lg font-semibold text-left focus:outline-none transition" data-faq>
+        <span>Kann ich meine Daten und Anrufe löschen?</span>
+        <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 text-gray-700">
+        Natürlich, du kannst alle Gesprächsdaten jederzeit im Dashboard löschen oder exportieren.
+      </div>
+    </div>
+    <!-- FAQ Item 9 -->
+    <div class="border-b">
+      <button type="button" class="w-full flex items-center justify-between py-4 text-lg font-semibold text-left focus:outline-none transition" data-faq>
+        <span>Gibt es einen Testzeitraum?</span>
+        <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 text-gray-700">
+        Ja, du kannst Anrufprofi.de 14 Tage lang unverbindlich testen.
+      </div>
+    </div>
+    <!-- FAQ Item 10 -->
+    <div>
+      <button type="button" class="w-full flex items-center justify-between py-4 text-lg font-semibold text-left focus:outline-none transition" data-faq>
+        <span>Wie starte ich mit Anrufprofi.de?</span>
+        <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 text-gray-700">
+        Einfach Kontakt aufnehmen, Zugang erhalten und schon kannst du deinen Telefonassistenten einrichten – fertig!
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Accordion logic
+  document.querySelectorAll('#faq-accordion [data-faq]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const answer = this.nextElementSibling;
+      const open = answer.classList.contains('max-h-40');
+      // Zuklappen aller Antworten
+      document.querySelectorAll('#faq-accordion .faq-answer').forEach(a => {
+        a.classList.remove('max-h-40', 'py-3');
+      });
+      document.querySelectorAll('#faq-accordion svg').forEach(icon => {
+        icon.classList.remove('rotate-180');
+      });
+      // Aufklappen der gewählten Antwort
+      if (!open) {
+        answer.classList.add('max-h-40', 'py-3');
+        this.querySelector('svg').classList.add('rotate-180');
+      }
+    });
+  });
+</script>
+
 
 <!-- Tailwind & Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -516,38 +824,38 @@ elCopy.onclick = () => {
         };
       };
     </script>
-    <section class="max-w-4xl mx-auto px-6 py-12 bg-white rounded-2xl shadow-lg border border-gray-200 mt-20">
-  <div class="text-center">
-    <h2 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">Bereit, Klara kennenzulernen?</h2>
-    <p class="text-gray-500 text-sm sm:text-base mb-6">Erlebe, wie dein Handwerksbetrieb mit KI-Unterstützung stressfreier und professioneller wird.</p>
-  </div>
-
-  <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-    <!-- Button 1 mit neuem Icon -->
-    <a href="#kontakt"
-       class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-md text-sm sm:text-base font-medium">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-           viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round"
-              d="M3 10l9-6 9 6-9 6-9-6zm0 4l9 6 9-6" />
-      </svg>
-      Jetzt anfragen
-    </a>
-
-    <!-- Button 2 bleibt gleich -->
-    <a href="#demo"
-       class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-50 transition shadow-sm text-sm sm:text-base font-medium">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-           viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round"
-              d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.868v4.264a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-        <path stroke-linecap="round" stroke-linejoin="round"
-              d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-      </svg>
-      Demo ansehen
-    </a>
-  </div>
-</section>
+   <section class="max-w-3xl mx-auto px-6 py-12 bg-white rounded-2xl shadow-2xl border border-gray-100 mt-20 flex flex-col items-center">
+    <div class="text-center">
+      <h2 class="text-3xl font-extrabold text-gray-900 mb-3">Bereit, Klara kennenzulernen?</h2>
+      <p class="text-base text-gray-500 mb-7">Erlebe, wie dein Handwerksbetrieb mit KI-Unterstützung stressfreier und professioneller wird.</p>
+    </div>
+  
+    <div class="w-full flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <!-- Button 1: Jetzt anfragen -->
+      <a href="#kontakt"
+         class="flex items-center gap-2 px-7 py-3 rounded-full text-white bg-[#18CB96] hover:bg-[#13b484] transition font-semibold shadow-md text-base group">
+        <svg class="w-5 h-5 text-white group-hover:text-white" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75V21a.75.75 0 00.75.75h4.5a.75.75 0 00.75-.75v-4.5h3v4.5a.75.75 0 00.75.75h4.5a.75.75 0 00.75-.75V9.75"/>
+        </svg>
+        Jetzt anfragen
+      </a>
+  
+      <!-- Button 2: Demo ansehen -->
+      <a href="#demo"
+         class="flex items-center gap-2 px-7 py-3 rounded-full border-2 border-[#18CB96] text-[#18CB96] hover:bg-[#18cb9615] transition font-semibold shadow-sm text-base group">
+        <svg class="w-5 h-5 text-[#18CB96] group-hover:text-[#18CB96]" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.75 9V6a3.75 3.75 0 00-7.5 0v3M4.5 12v6.75A2.25 2.25 0 006.75 21h10.5a2.25 2.25 0 002.25-2.25V12m-16.5 0h19.5"/>
+          <circle cx="12" cy="14" r="2.5" stroke="#18CB96" stroke-width="2" fill="none"/>
+        </svg>
+        Demo ansehen
+      </a>
+    </div>
+  </section>
+  
 
 
 <footer class="bg-gray-50 border-t text-gray-700 mt-20">
@@ -626,13 +934,17 @@ elCopy.onclick = () => {
 
 
 <script>
-  // Mobile menu toggle
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('mobile-menu-button');
-    const menu = document.getElementById('mobile-menu');
-    btn.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
+  
+  
+  // Mobile Menu Toggle
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
     });
+  }
+
 
     // Textanimation
     const texte = [
