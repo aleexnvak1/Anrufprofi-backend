@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   const { name, email, message } = req.body;
 
-  console.log('📨 Neue Anfrage erhalten:', { name, email, message });
+  console.log('📨 Neue Anfrage erhalten:', { name, email, phone, message });
 
   try {
     // 1. In Supabase speichern
