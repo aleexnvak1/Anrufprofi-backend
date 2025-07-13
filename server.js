@@ -20,7 +20,8 @@ app.use('/api/clients', require('./routes/clients'));
 app.use('/api/calls', require('./routes/calls'));
 app.use('/api/klara', require('./routes/klara'));       // KI-Endpunkt
 app.use('/api/feedback', require('./routes/feedback')); // Feedback-Endpunkt
-app.use('/api/demo-requests', require('./api/demo-requests')); // Demo-Anfragen
+app.use('/api/demo-requests', require('./routes/demo-request'));
+
 
 // Alle Kontaktanfragen für das Admin-Dashboard abrufen
 app.get('/api/requests', async (req, res) => {
