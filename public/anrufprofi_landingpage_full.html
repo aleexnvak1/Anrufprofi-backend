@@ -934,8 +934,7 @@ elCopy.onclick = () => {
 
 
 <script>
-  
-  
+
   // Mobile Menu Toggle
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
@@ -945,6 +944,14 @@ elCopy.onclick = () => {
     });
   }
 
+  
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
 
     // Textanimation
     const texte = [
