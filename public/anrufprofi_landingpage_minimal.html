@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  
+
+
+
+
+<script>
+const texts = [
+  "dein Unternehmen",
+  "Handwerksbetrieb",
+  "Praxis oder Kanzlei",
+  "Kundenservice",
+  "Telefonzentrale",
+  "Vertriebsteam",
+  "Support",
+  "Büro",
+  "Notdienst",
+  "deine Wunsch-Zeit"
+];
+let current = 0;
+const textWechsler = document.getElementById('textWechsler');
+function wechselText() {
+  current = (current + 1) % texts.length;
+  textWechsler.style.opacity = 0;
+  setTimeout(() => {
+    textWechsler.textContent = texts[current];
+    textWechsler.style.opacity = 1;
+  }, 400);
+}
+setInterval(wechselText, 2200);
+</script>
+
+</body>
+</html>

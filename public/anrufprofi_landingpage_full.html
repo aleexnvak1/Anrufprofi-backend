@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <link rel="icon" type="image/x-icon" href="Fotos/KLARA.svg">
+  <link rel="icon" type="image/x-icon" href="Fotos/klarah.svg">
 
 <!-- Optional zusätzlich für moderne Browser -->
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
@@ -45,7 +45,7 @@
   <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
     <!-- Logo -->
     <div class="flex items-center space-x-3">
-      <img src="Fotos/KLARA.svg" alt="Klara Logo" class="w-8 h-8">
+      <img src="Fotos/klarah.svg" alt="Klara Logo" class="w-8 h-8">
       <span class="font-extrabold text-primary text-xl tracking-tight">anrufprofi.de</span>
     </div>
     <!-- Desktop Nav Links -->
@@ -115,6 +115,7 @@
       <img src="Fotos/klarah.svg" alt="Klara Avatar" class="w-52 md:w-50 h-auto mx-auto mt-4">
     </div>
   </div>
+  
 </section>
 
 <div class="w-full max-w-sm mx-auto flex flex-col items-center gap-6 bg-white rounded-2xl shadow-md p-8">
@@ -422,13 +423,14 @@
 </section>
 
 <!-- Testimonial Card Component – animiert, modern, interaktiv -->
-<div id="testimonial-card" class="max-w-lg mx-auto bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center transition-all duration-500 relative overflow-hidden group">
-  <!-- Icon / Symbol oben -->
+ <!-- Modern Testimonial Card (automatisch wechselnd) -->
+<div id="testimonial-card" class="max-w-lg mx-auto bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center transition-all duration-700 relative overflow-hidden group">
+  <!-- Symbol/Icon -->
   <div class="bg-primary/10 rounded-full p-4 mb-4 animate-bounce">
     <i class="bi bi-chat-quote-fill text-primary text-3xl"></i>
   </div>
-  <!-- Zitattext animiert -->
-  <p id="testimonial-text" class="text-xl text-gray-900 font-semibold text-center min-h-[80px] transition-all duration-500 ease-in-out opacity-100"></p>
+  <!-- Zitattext -->
+  <p id="testimonial-text" class="text-xl text-gray-900 font-semibold text-center min-h-[80px] transition-all duration-500 ease-in-out"></p>
   <!-- Bewertungssterne -->
   <div id="testimonial-stars" class="flex justify-center mt-4 mb-2"></div>
   <!-- Name + Beruf + Bild -->
@@ -437,24 +439,8 @@
     <span id="testimonial-name" class="mt-2 font-bold text-lg text-primary"></span>
     <span id="testimonial-role" class="text-sm text-gray-500"></span>
   </div>
-  <!-- Action Buttons: Like, Copy, Prev/Next -->
-  <div class="flex gap-4 mt-6">
-    <button id="like-btn" class="bg-primary/10 hover:bg-primary/20 p-2 rounded-full transition">
-      <i id="like-icon" class="bi bi-heart text-primary text-xl"></i>
-    </button>
-    <button id="copy-btn" class="bg-primary/10 hover:bg-primary/20 p-2 rounded-full transition">
-      <i class="bi bi-clipboard text-primary text-xl"></i>
-    </button>
-    <button id="prev-btn" class="bg-primary/10 hover:bg-primary/20 p-2 rounded-full transition">
-      <i class="bi bi-chevron-left text-primary text-xl"></i>
-    </button>
-    <button id="next-btn" class="bg-primary/10 hover:bg-primary/20 p-2 rounded-full transition">
-      <i class="bi bi-chevron-right text-primary text-xl"></i>
-    </button>
-  </div>
-  <!-- Like Animation Herz -->
-  <div id="like-anim" class="absolute left-1/2 top-1/3 -translate-x-1/2 text-pink-500 text-5xl opacity-0 pointer-events-none transition"></div>
 </div>
+
 
 <div class="w-full max-w-2xl mx-auto mt-12 bg-white rounded-2xl shadow-lg p-6">
   <h2 class="text-2xl font-bold mb-8 text-center">Häufige Fragen zu Anrufprofi.de</h2>
@@ -590,90 +576,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <script src="https://cdn.tailwindcss.com"></script>
 
-<script>
-const testimonials = [
-  {
-    text: "„Seit Klara unsere Anrufe übernimmt, ist endlich Ruhe im Büro. Wir verpassen keine Anfragen mehr – auch am Wochenende kommt alles sauber dokumentiert rein. Für uns ein Gamechanger.“",
-    stars: 5,
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-    name: "Sebastian R.",
-    role: "Geschäftsführer Sanitär & Heizung"
-  },
-  {
-    text: "„Wir waren anfangs skeptisch, ob eine KI unsere Kunden versteht. Aber Klara macht das echt professionell. Die Gespräche klingen menschlich, die Infos stimmen – und wir sparen viel Zeit.“",
-    stars: 5,
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    name: "Anja K.",
-    role: "Büroleitung Elektronik"
-  },
-  {
-    text: "„Klara ist freundlich, strukturiert und sorgt dafür, dass wirklich kein Anruf verloren geht. Unsere Monteure sind spürbar entlastet.“",
-    stars: 4,
-    avatar: "https://randomuser.me/api/portraits/men/85.jpg",
-    name: "Markus S.",
-    role: "Teamleiter SHK"
-  }
-];
-
-let index = 0;
-const elText = document.getElementById('testimonial-text');
-const elStars = document.getElementById('testimonial-stars');
-const elAvatar = document.getElementById('testimonial-avatar');
-const elName = document.getElementById('testimonial-name');
-const elRole = document.getElementById('testimonial-role');
-const elLike = document.getElementById('like-btn');
-const elLikeIcon = document.getElementById('like-icon');
-const elLikeAnim = document.getElementById('like-anim');
-const elCopy = document.getElementById('copy-btn');
-const elPrev = document.getElementById('prev-btn');
-const elNext = document.getElementById('next-btn');
-
-function renderTestimonial(i) {
-  const t = testimonials[i];
-  elText.style.opacity = 0;
-  setTimeout(() => {
-    elText.textContent = t.text;
-    elText.style.opacity = 1;
-    // Sterne
-    elStars.innerHTML = '';
-    for(let s=0; s<5; s++) {
-      elStars.innerHTML += `<i class="bi ${s<t.stars ? "bi-star-fill text-yellow-400" : "bi-star text-gray-300"} text-lg"></i>`;
-    }
-    // Bild, Name, Rolle
-    elAvatar.src = t.avatar;
-    elName.textContent = t.name;
-    elRole.textContent = t.role;
-  }, 250);
-}
-renderTestimonial(index);
-
-elNext.onclick = () => {
-  index = (index+1) % testimonials.length;
-  renderTestimonial(index);
-};
-elPrev.onclick = () => {
-  index = (index-1+testimonials.length) % testimonials.length;
-  renderTestimonial(index);
-};
-elLike.onclick = () => {
-  elLikeIcon.classList.toggle("bi-heart");
-  elLikeIcon.classList.toggle("bi-heart-fill");
-  elLikeIcon.classList.toggle("text-pink-500");
-  // animiertes Herz
-  elLikeAnim.innerHTML = `<i class="bi bi-heart-fill"></i>`;
-  elLikeAnim.style.opacity = 1;
-  elLikeAnim.classList.add("animate-bounce");
-  setTimeout(()=>{
-    elLikeAnim.style.opacity = 0;
-    elLikeAnim.classList.remove("animate-bounce");
-  },600);
-};
-elCopy.onclick = () => {
-  navigator.clipboard.writeText(testimonials[index].text);
-  elCopy.innerHTML = '<i class="bi bi-clipboard-check text-green-500 text-xl"></i>';
-  setTimeout(()=>elCopy.innerHTML='<i class="bi bi-clipboard text-primary text-xl"></i>',900);
-};
-</script>
 
 
   
@@ -934,7 +836,70 @@ elCopy.onclick = () => {
 
 
 <script>
+const testimonials = [
+  {
+    text: "Seitdem wir Klara nutzen, haben wir nie wieder einen Anruf verpasst – das ist echte Erreichbarkeit!",
+    stars: 5,
+    name: "Andreas Müller",
+    role: "Elektrikermeister",
+    avatar: "https://randomuser.me/api/portraits/men/75.jpg"
+  },
+  {
+    text: "Klara hat mein Büro enorm entlastet. Alle Infos landen direkt digital bei mir. Mega Service!",
+    stars: 5,
+    name: "Sabine Fischer",
+    role: "Malerbetrieb Inhaberin",
+    avatar: "https://randomuser.me/api/portraits/women/43.jpg"
+  },
+  {
+    text: "Schnell eingerichtet, keine Technik-Sorgen mehr. Klara klingt richtig sympathisch am Telefon!",
+    stars: 4,
+    name: "Ali Öztürk",
+    role: "Sanitär & Heizung",
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg"
+  }
+];
 
+let current = 0;
+const text = document.getElementById('testimonial-text');
+const stars = document.getElementById('testimonial-stars');
+const avatar = document.getElementById('testimonial-avatar');
+const name = document.getElementById('testimonial-name');
+const role = document.getElementById('testimonial-role');
+
+function showTestimonial(idx) {
+  text.style.opacity = 0;
+  avatar.style.opacity = 0;
+  name.style.opacity = 0;
+  role.style.opacity = 0;
+  stars.style.opacity = 0;
+
+  setTimeout(() => {
+    text.textContent = testimonials[idx].text;
+    avatar.src = testimonials[idx].avatar;
+    name.textContent = testimonials[idx].name;
+    role.textContent = testimonials[idx].role;
+    // Sterne anzeigen
+    stars.innerHTML = "";
+    for(let i = 1; i <= 5; i++) {
+      stars.innerHTML += `<i class="bi ${i <= testimonials[idx].stars ? 'bi-star-fill text-yellow-400' : 'bi-star text-gray-300'} text-xl"></i>`;
+    }
+    text.style.opacity = 1;
+    avatar.style.opacity = 1;
+    name.style.opacity = 1;
+    role.style.opacity = 1;
+    stars.style.opacity = 1;
+  }, 350);
+}
+
+// Initial anzeigen
+showTestimonial(current);
+
+// Automatisch alle 5 Sekunden wechseln
+setInterval(() => {
+  current = (current + 1) % testimonials.length;
+  showTestimonial(current);
+}, 5000);
   // Mobile Menu Toggle
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
@@ -947,47 +912,42 @@ elCopy.onclick = () => {
   
   // Mobile menu toggle
   document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('mobile-menu-button');
-    const menu = document.getElementById('mobile-menu');
-    btn.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
-    });
+  // Textanimation
+  const texte = [
+    "dein Unternehmen",
+    "mehr Umsatz",
+    "mehr Kunden",
+    "mehr Zeit!",
+    "weniger Stress",
+    "Mehr Fokus",
+  ];
 
-    // Textanimation
-    const texte = [
-      "dein Unternehmen",
-      "mehr Umsatz",
-      "mehr Kunden",
-      "mehr Zeit!",
-      "weniger Stress",
-      "Mehr Fokus",
-    ];
+  let index = 0;
+  const span = document.getElementById("textWechsler");
 
-    let index = 0;
-    const span = document.getElementById("textWechsler");
+  function slideText() {
+    // Hochsliden
+    span.style.transform = "translateY(-100%)";
 
-    function slideText() {
-      // Hochsliden
-      span.style.transform = "translateY(-100%)";
+    setTimeout(() => {
+      // Nach unten setzen & neuen Text
+      span.style.transition = "none";
+      span.style.transform = "translateY(100%)";
+      span.textContent = texte[(++index) % texte.length];
 
-      setTimeout(() => {
-        // Nach unten setzen & neuen Text
-        span.style.transition = "none";
-        span.style.transform = "translateY(100%)";
-        span.textContent = texte[(++index) % texte.length];
+      // Dann rein sliden
+      requestAnimationFrame(() => {
+        span.style.transition = "transform 0.5s ease-in-out";
+        span.style.transform = "translateY(0)";
+      });
+    }, 500);
+  }
 
-        // Dann rein sliden
-        requestAnimationFrame(() => {
-          span.style.transition = "transform 0.5s ease-in-out";
-          span.style.transform = "translateY(0)";
-        });
-      }, 500);
-    }
+  // Start
+  span.style.transform = "translateY(0)";
+  setInterval(slideText, 2500);
+});
 
-    // Start
-    span.style.transform = "translateY(0)";
-    setInterval(slideText, 2500);
-  });
 </script>
 
 
