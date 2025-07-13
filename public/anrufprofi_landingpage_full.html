@@ -210,108 +210,165 @@
   </div>
 </section>
 <!-- SECTION 5 – Warum nutzen Unternehmen Klara? -->
-<section id="vorteile" class="py-20 bg-white text-center">
+<section id="vorteile" class="py-20 bg-gray-50">
   <div class="max-w-6xl mx-auto px-4">
-    <h2 class="text-3xl md:text-4xl font-bold mb-12">Warum nutzen Unternehmen Klara?</h2>
-    <div class="grid md:grid-cols-3 gap-8 text-left">
-
-      <div class="bg-white shadow-2xl rounded-lg p-6">
-        <div class="text-primary text-4xl mb-4"><i class="bi bi-check2-circle"></i></div>
-        <h3 class="text-xl font-semibold mb-2">Keine verpassten Anfragen</h3>
-        <p>Klara nimmt Anrufe auch außerhalb der Öffnungszeiten entgegen und sorgt dafür, dass du nie wieder potenzielle Kunden verlierst.</p>
+    <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
+      <span class="inline-block bg-appleblue px-5 py-1 rounded-xl text-primary text-2xl mb-4">
+        <i class="bi bi-star-fill mr-2"></i>
+        Warum Klara?
+      </span>
+    </h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all p-8 flex flex-col items-center text-center">
+        <div class="text-primary text-5xl mb-4">
+          <i class="bi bi-telephone-inbound-fill"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Keine verpassten Anfragen</h3>
+        <p class="text-gray-600">Klara nimmt Anrufe rund um die Uhr entgegen. Nie wieder einen potenziellen Kunden verlieren.</p>
       </div>
-
-      <div class="bg-white shadow-2xl rounded-lg p-6">
-        <div class="text-primary text-4xl mb-4"><i class="bi bi-clock-history"></i></div>
-        <h3 class="text-xl font-semibold mb-2">Mehr Zeit fürs Wesentliche</h3>
-        <p>Weniger Rückrufe, weniger Unterbrechungen – mehr Fokus auf dein eigentliches Handwerk.</p>
+      <div class="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all p-8 flex flex-col items-center text-center">
+        <div class="text-primary text-5xl mb-4">
+          <i class="bi bi-clock-history"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Mehr Zeit fürs Wesentliche</h3>
+        <p class="text-gray-600">Reduziere Rückrufe, vermeide Unterbrechungen und fokussiere dich auf dein Handwerk.</p>
       </div>
-
-      <div class="bg-white shadow-2xl rounded-lg p-6">
-        <div class="text-primary text-4xl mb-4"><i class="bi bi-people"></i></div>
-        <h3 class="text-xl font-semibold mb-2">Team entlasten</h3>
-        <p>Klara übernimmt die Kommunikation am Telefon – freundlich, zuverlässig und rund um die Uhr.</p>
+      <div class="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all p-8 flex flex-col items-center text-center">
+        <div class="text-primary text-5xl mb-4">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Team entlasten</h3>
+        <p class="text-gray-600">Klara übernimmt das Telefon – freundlich, zuverlässig und jederzeit erreichbar.</p>
       </div>
-
     </div>
   </div>
 </section>
+<!-- Testimonial Card Component – animiert, modern, interaktiv -->
+<div id="testimonial-card" class="max-w-lg mx-auto bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center transition-all duration-500 relative overflow-hidden group">
+  <!-- Icon / Symbol oben -->
+  <div class="bg-primary/10 rounded-full p-4 mb-4 animate-bounce">
+    <i class="bi bi-chat-quote-fill text-primary text-3xl"></i>
+  </div>
+  <!-- Zitattext animiert -->
+  <p id="testimonial-text" class="text-xl text-gray-900 font-semibold text-center min-h-[80px] transition-all duration-500 ease-in-out opacity-100"></p>
+  <!-- Bewertungssterne -->
+  <div id="testimonial-stars" class="flex justify-center mt-4 mb-2"></div>
+  <!-- Name + Beruf + Bild -->
+  <div class="flex flex-col items-center mt-4">
+    <img id="testimonial-avatar" class="w-14 h-14 rounded-full object-cover border-2 border-primary shadow" alt="avatar">
+    <span id="testimonial-name" class="mt-2 font-bold text-lg text-primary"></span>
+    <span id="testimonial-role" class="text-sm text-gray-500"></span>
+  </div>
+  <!-- Action Buttons: Like, Copy, Prev/Next -->
+  <div class="flex gap-4 mt-6">
+    <button id="like-btn" class="bg-primary/10 hover:bg-primary/20 p-2 rounded-full transition">
+      <i id="like-icon" class="bi bi-heart text-primary text-xl"></i>
+    </button>
+    <button id="copy-btn" class="bg-primary/10 hover:bg-primary/20 p-2 rounded-full transition">
+      <i class="bi bi-clipboard text-primary text-xl"></i>
+    </button>
+    <button id="prev-btn" class="bg-primary/10 hover:bg-primary/20 p-2 rounded-full transition">
+      <i class="bi bi-chevron-left text-primary text-xl"></i>
+    </button>
+    <button id="next-btn" class="bg-primary/10 hover:bg-primary/20 p-2 rounded-full transition">
+      <i class="bi bi-chevron-right text-primary text-xl"></i>
+    </button>
+  </div>
+  <!-- Like Animation Herz -->
+  <div id="like-anim" class="absolute left-1/2 top-1/3 -translate-x-1/2 text-pink-500 text-5xl opacity-0 pointer-events-none transition"></div>
+</div>
 
-  <body class="flex min-h-screen flex-col justify-center">
-    <div class="w-full">
-      <div class="container mx-auto my-32 flex flex-col gap-20">
-        <div class="flex w-full flex-col items-center gap-4 text-center">
-          <h2 class="text-l md:text-xl mb-12" style="color: oklch(62.3% 0.214 259.815);">
-  Wir haben Fans!
-</h2>
-          <h2
-            class="text-3xl font-bold leading-tight text-dark-grey-900 md:text-4xl"
-          >
-            Kunden Bewertungen
-          </h2>
-          <p
-            class="text-base font-medium leading-7 text-dark-grey-600 md:w-7/12"
-          >
-            Klara unterstützt Unternehmen jeder Größe – vom Einzelbetrieb bis zum Team mit mehreren Monteuren. Sie entlastet den Alltag, sorgt für klare Kommunikation und wird schnell zur unverzichtbaren Hilfe.
-          </p>
-        </div>
-        <div class="grid w-full grid-cols-1 gap-4 lg:grid-cols-2">
-          <div
-            class="flex w-full flex-col items-center gap-9 rounded-2xl bg-grey-200 p-8"
-          >
-            <p
-              class="text-center text-xl font-bold leading-normal text-dark-grey-900"
-            >
-              „Seit Klara unsere Anrufe übernimmt, ist bei uns im Büro endlich Ruhe. Wir verpassen keine Kundenanfragen mehr – selbst am Wochenende kommt alles sauber dokumentiert rein. Für uns als kleiner Betrieb ein echter Gamechanger.“
-            </p>
-            <div class="flex flex-col items-center gap-4">
-              <img
-                class="h-10 w-10 rounded-full object-cover"
-                src="../../img/avatars/avatar-3.jpeg"
-                alt="avatar image"
-              />
-              <div class="flex flex-col items-center">
-                <p class="text-center text-lg font-bold text-dark-grey-900">
-                  Sebastian R.
-                </p>
-                <p
-                  class="text-center text-xs font-semibold leading-normal text-dark-grey-600"
-                >
-                  Geschäftsführer Sanitär & Heizung
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            class="flex w-full flex-col items-center gap-9 rounded-2xl bg-grey-200 p-8"
-          >
-            <p
-              class="text-center text-xl font-bold leading-normal text-dark-grey-900"
-            >
-              „Wir waren anfangs skeptisch, ob eine KI unsere Kunden richtig versteht. Aber Klara macht das wirklich professionell. Die Gespräche klingen menschlich, die Infos stimmen – und wir sparen enorm viel Zeit.“
-            </p>
-            <div class="flex flex-col items-center gap-4">
-              <img
-                class="h-10 w-10 rounded-full object-cover"
-                src="../../img/avatars/avatar-3.jpeg"
-                alt="avatar image"
-              />
-              <div class="flex flex-col items-center">
-                <p class="text-center text-lg font-bold text-dark-grey-900">
-                  Anja K.
-                </p>
-                <p
-                  class="text-center text-xs font-semibold leading-normal text-dark-grey-600"
-                >
-                  Büroleitung, Elektroniker für Energie- und Gebäudetechnik
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>
+<!-- Tailwind & Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+const testimonials = [
+  {
+    text: "„Seit Klara unsere Anrufe übernimmt, ist endlich Ruhe im Büro. Wir verpassen keine Anfragen mehr – auch am Wochenende kommt alles sauber dokumentiert rein. Für uns ein Gamechanger.“",
+    stars: 5,
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    name: "Sebastian R.",
+    role: "Geschäftsführer Sanitär & Heizung"
+  },
+  {
+    text: "„Wir waren anfangs skeptisch, ob eine KI unsere Kunden versteht. Aber Klara macht das echt professionell. Die Gespräche klingen menschlich, die Infos stimmen – und wir sparen viel Zeit.“",
+    stars: 5,
+    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+    name: "Anja K.",
+    role: "Büroleitung Elektronik"
+  },
+  {
+    text: "„Klara ist freundlich, strukturiert und sorgt dafür, dass wirklich kein Anruf verloren geht. Unsere Monteure sind spürbar entlastet.“",
+    stars: 4,
+    avatar: "https://randomuser.me/api/portraits/men/85.jpg",
+    name: "Markus S.",
+    role: "Teamleiter SHK"
+  }
+];
+
+let index = 0;
+const elText = document.getElementById('testimonial-text');
+const elStars = document.getElementById('testimonial-stars');
+const elAvatar = document.getElementById('testimonial-avatar');
+const elName = document.getElementById('testimonial-name');
+const elRole = document.getElementById('testimonial-role');
+const elLike = document.getElementById('like-btn');
+const elLikeIcon = document.getElementById('like-icon');
+const elLikeAnim = document.getElementById('like-anim');
+const elCopy = document.getElementById('copy-btn');
+const elPrev = document.getElementById('prev-btn');
+const elNext = document.getElementById('next-btn');
+
+function renderTestimonial(i) {
+  const t = testimonials[i];
+  elText.style.opacity = 0;
+  setTimeout(() => {
+    elText.textContent = t.text;
+    elText.style.opacity = 1;
+    // Sterne
+    elStars.innerHTML = '';
+    for(let s=0; s<5; s++) {
+      elStars.innerHTML += `<i class="bi ${s<t.stars ? "bi-star-fill text-yellow-400" : "bi-star text-gray-300"} text-lg"></i>`;
+    }
+    // Bild, Name, Rolle
+    elAvatar.src = t.avatar;
+    elName.textContent = t.name;
+    elRole.textContent = t.role;
+  }, 250);
+}
+renderTestimonial(index);
+
+elNext.onclick = () => {
+  index = (index+1) % testimonials.length;
+  renderTestimonial(index);
+};
+elPrev.onclick = () => {
+  index = (index-1+testimonials.length) % testimonials.length;
+  renderTestimonial(index);
+};
+elLike.onclick = () => {
+  elLikeIcon.classList.toggle("bi-heart");
+  elLikeIcon.classList.toggle("bi-heart-fill");
+  elLikeIcon.classList.toggle("text-pink-500");
+  // animiertes Herz
+  elLikeAnim.innerHTML = `<i class="bi bi-heart-fill"></i>`;
+  elLikeAnim.style.opacity = 1;
+  elLikeAnim.classList.add("animate-bounce");
+  setTimeout(()=>{
+    elLikeAnim.style.opacity = 0;
+    elLikeAnim.classList.remove("animate-bounce");
+  },600);
+};
+elCopy.onclick = () => {
+  navigator.clipboard.writeText(testimonials[index].text);
+  elCopy.innerHTML = '<i class="bi bi-clipboard-check text-green-500 text-xl"></i>';
+  setTimeout(()=>elCopy.innerHTML='<i class="bi bi-clipboard text-primary text-xl"></i>',900);
+};
+</script>
+
+
+  
   <!-- component -->
 <!DOCTYPE html>
 <html lang="de">
