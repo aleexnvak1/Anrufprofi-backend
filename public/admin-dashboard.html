@@ -20,7 +20,6 @@
     <nav class="bg-gradient-to-r from-indigo-600 via-cyan-500 to-pink-400 shadow-lg px-4 py-4 sticky top-0 z-20">
       <div class="max-w-7xl mx-auto flex justify-between items-center">
         <a href="/admin-dashboard.html" class="flex items-center gap-2 text-2xl font-bold text-white">
-          <!-- SVG Logo/Icon -->
           <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2"
             viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -44,7 +43,6 @@
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div class="bg-gradient-to-r from-indigo-100 via-indigo-50 to-white rounded-2xl p-6 shadow-md hover:shadow-lg transition flex items-center gap-4">
           <div class="bg-indigo-500 text-white rounded-full p-3 shadow w-12 h-12 flex items-center justify-center">
-            <!-- Inbox Icon -->
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8m-9 13V5" />
             </svg>
@@ -56,7 +54,6 @@
         </div>
         <div class="bg-gradient-to-r from-yellow-100 via-white to-white rounded-2xl p-6 shadow-md hover:shadow-lg transition flex items-center gap-4">
           <div class="bg-yellow-400 text-white rounded-full p-3 shadow w-12 h-12 flex items-center justify-center">
-            <!-- Hourglass Icon -->
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 4v4c0 2.21 1.79 4 4 4s4-1.79 4-4V4m-8 16v-4c0-2.21 1.79-4 4-4s4 1.79 4 4v4" />
             </svg>
@@ -68,7 +65,6 @@
         </div>
         <div class="bg-gradient-to-r from-green-100 via-white to-white rounded-2xl p-6 shadow-md hover:shadow-lg transition flex items-center gap-4">
           <div class="bg-green-500 text-white rounded-full p-3 shadow w-12 h-12 flex items-center justify-center">
-            <!-- Checkmark Icon -->
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>
@@ -147,75 +143,6 @@
       </div>
     </main>
   </div>
-  <!-- Demo-Anfragen Übersicht -->
-<section class="max-w-3xl mx-auto bg-white shadow rounded-xl p-6 mt-10">
-  <h2 class="text-xl font-bold mb-6 text-blue-900 flex items-center gap-2">
-    <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" stroke-width="2"
-      viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round"
-        d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8m-9 13V5" />
-    </svg>
-    Demo-Anfragen
-  </h2>
-  <div id="demoList" class="space-y-4"></div>
-</section>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script>
-  // Supabase Konfiguration
-  const supabase = supabase.createClient(
-    'https://deine-supabase-url.supabase.co',
-    'service-role-or-public-key' // im Adminbereich darf es service-role sein
-  );
-
-  // Demo-Anfragen laden und anzeigen
-  async function loadDemoRequests() {
-    const { data, error } = await supabase
-      .from('demo_requests')
-      .select('*')
-      .order('created_at', {ascending: false});
-    const container = document.getElementById('demoList');
-    if (error) {
-      container.innerHTML = '<div class="text-red-500">Fehler beim Laden</div>';
-      return;
-    }
-    if (!data.length) {
-      container.innerHTML = '<div class="text-gray-400">Keine Demo-Anfragen vorhanden.</div>';
-      return;
-    }
-    container.innerHTML = data.map(req => `
-      <div class="border rounded-lg px-4 py-4 bg-blue-50 flex flex-col gap-1 relative group">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <div>
-            <b>${req.name}</b>
-            ${req.company ? '· <span class="text-sm text-gray-600">' + req.company + '</span>' : ''}
-          </div>
-          <span class="text-xs text-gray-400">${new Date(req.created_at).toLocaleString()}</span>
-        </div>
-        <div class="flex flex-wrap gap-6 my-2 text-gray-800">
-          <span><i class="bi bi-telephone"></i> ${req.phone}</span>
-          ${req.email ? `<span><i class="bi bi-envelope"></i> ${req.email}</span>` : ''}
-          ${req.preferred_time ? `<span><i class="bi bi-calendar"></i> ${new Date(req.preferred_time).toLocaleString()}</span>` : ''}
-        </div>
-        ${req.notes ? `<div class="text-xs text-blue-800 italic border-l-4 border-blue-400 pl-2 mb-2">"${req.notes}"</div>` : ''}
-        <div class="absolute right-4 top-4 flex gap-2 opacity-0 group-hover:opacity-100 transition">
-          <button onclick="deleteDemoRequest('${req.id}')" class="bg-pink-100 hover:bg-pink-400/90 text-pink-600 hover:text-white rounded-full p-2" title="Löschen">
-            <i class="bi bi-trash"></i>
-          </button>
-        </div>
-      </div>
-    `).join('');
-  }
-  loadDemoRequests();
-
-  // Demo-Anfrage löschen
-  async function deleteDemoRequest(id) {
-    if (!confirm('Wirklich löschen?')) return;
-    await supabase.from('demo_requests').delete().eq('id', id);
-    loadDemoRequests();
-  }
-</script>
-
 
   <!-- Vue App -->
   <script>
