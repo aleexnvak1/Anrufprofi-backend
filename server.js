@@ -3,17 +3,15 @@ const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
 const supabase = require('./supabaseclient');
-app.use('/api/sipgate', require('./routes/sipgate'));
-
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
+// === MIDDLEWARE ===
 app.use(cors());
 app.use(express.json());
 
-// Statische Dateien bereitstellen (Frontend liegt in /public)
+// === STATISCHE DATEIEN ===
 app.use(express.static(path.join(__dirname, 'public')));
 
 // === ROUTEN EINBINDEN ===
@@ -24,10 +22,7 @@ app.use('/api/stats', require('./routes/stats'));             // ⭐ NEU: Dashbo
 app.use('/api/klara', require('./routes/klara'));             // KI-Endpunkt
 app.use('/api/feedback', require('./routes/feedback'));       // Feedback-Endpunkt
 app.use('/api/demo-requests', require('./routes/demo-request')); // Demo-Anfragen
-
-app.use('/api/sipgate', require('./routes/sipgate'));
-
-
+app.use('/api/sipgate', require('./routes/sipgate'));         // ⭐ SIPGATE WEBHOOK (MUSS nach app und vor Listen!)
 
 // === ADMIN DASHBOARD: Kontaktanfragen ===
 
@@ -97,7 +92,7 @@ app.get('/', (req, res) => {
   res.redirect('/adminpassword.html');
 });
 
-// Server starten
+// === SERVER STARTEN ===
 app.listen(PORT, () => {
   console.log(`✅ Server läuft auf http://localhost:${PORT}`);
 });
