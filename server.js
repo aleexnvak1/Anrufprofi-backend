@@ -20,13 +20,15 @@ const clientRoutes = require('./routes/clients');
 const callRoutes = require('./routes/calls');
 const klaraRoutes = require('./routes/klara');
 const feedbackRoutes = require('./routes/feedback');
+const statsRoutes = require('./routes/stats');
 
 
 app.use('/api/contact', contactRoutes);
 app.use('/api/clients', clientRoutes);
-app.use('/api/calls', callRoutes);
+app.use('/api/calls', callRoutes);          
 app.use('/api/klara', klaraRoutes);           // ✅ KI-Endpunkt
 app.use('/api/feedback', feedbackRoutes);     // ✅ Feedback-Endpunkt
+app.use('/api/stats', statsRoutes);           // ✅ Statistiken-Endpunkt
 
 // ✅ Alle Anfragen abrufen für Admin-Dashboard
 app.get('/api/requests', async (req, res) => {
