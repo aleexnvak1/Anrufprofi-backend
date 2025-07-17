@@ -3,6 +3,8 @@ const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
 const supabase = require('./supabaseclient');
+app.use('/api/sipgate', require('./routes/sipgate'));
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -22,6 +24,8 @@ app.use('/api/stats', require('./routes/stats'));             // ⭐ NEU: Dashbo
 app.use('/api/klara', require('./routes/klara'));             // KI-Endpunkt
 app.use('/api/feedback', require('./routes/feedback'));       // Feedback-Endpunkt
 app.use('/api/demo-requests', require('./routes/demo-request')); // Demo-Anfragen
+router.post('/incoming-call', async (req, res) => {});
+
 
 // === ADMIN DASHBOARD: Kontaktanfragen ===
 
