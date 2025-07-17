@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
-const supabase = require('./supabaseclient'); // Nur einmal laden
+const supabase = require('./supabaseclient');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -11,17 +11,19 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Statische Dateien bereitstellen (Frontend liegt z. B. in /public)
+// Statische Dateien bereitstellen (Frontend liegt in /public)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Routen einbinden
+// === ROUTEN EINBINDEN ===
 app.use('/api/contact', require('./routes/contact'));
 app.use('/api/clients', require('./routes/clients'));
 app.use('/api/calls', require('./routes/calls'));
-app.use('/api/klara', require('./routes/klara'));       // KI-Endpunkt
-app.use('/api/feedback', require('./routes/feedback')); // Feedback-Endpunkt
-app.use('/api/demo-requests', require('./routes/demo-request'));
+app.use('/api/stats', require('./routes/stats'));             // ⭐ NEU: Dashboard-Statistiken
+app.use('/api/klara', require('./routes/klara'));             // KI-Endpunkt
+app.use('/api/feedback', require('./routes/feedback'));       // Feedback-Endpunkt
+app.use('/api/demo-requests', require('./routes/demo-request')); // Demo-Anfragen
 
+// === ADMIN DASHBOARD: Kontaktanfragen ===
 
 // Alle Kontaktanfragen für das Admin-Dashboard abrufen
 app.get('/api/requests', async (req, res) => {

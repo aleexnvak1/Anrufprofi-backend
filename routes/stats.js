@@ -21,7 +21,7 @@ router.get('/:client_id', async (req, res) => {
 
     const avg_duration = callsData && callsData.length
       ? Math.round(callsData.reduce((sum, c) => sum + (c.duration_seconds || 0), 0) / callsData.length)
-      : 0;
+      : 0;  //
 
     // Erfolgreich bearbeitet (%)
     const { count: success_calls } = await supabase
