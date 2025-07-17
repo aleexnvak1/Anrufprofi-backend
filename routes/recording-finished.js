@@ -4,21 +4,21 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const FormData = require('form-data');
+const supabase = require('../supabaseclient');
 
-// Hilfsfunktion: Audio herunterladen
+// Download-Helper
 async function downloadRecording(url, filename) {
   const response = await axios({ url, method: 'GET', responseType: 'stream' });
-  const filepath = path.join('/tmp', filename); // /tmp funktioniert bei Render
+  const filepath = path.join('/tmp', filename);
   const writer = fs.createWriteStream(filepath);
   response.data.pipe(writer);
-
   return new Promise((resolve, reject) => {
     writer.on('finish', () => resolve(filepath));
     writer.on('error', reject);
   });
 }
 
-// Hilfsfunktion: OpenAI Whisper Transkription
+// Whisper-Transkription
 async function transcribeWithWhisper(filePath) {
   const form = new FormData();
   form.append('file', fs.createReadStream(filePath));
@@ -37,7 +37,6 @@ async function transcribeWithWhisper(filePath) {
   return response.data.text;
 }
 
-// Die Route!
 router.post('/recording-finished', async (req, res) => {
   try {
     console.log('🎤 Recording finished:', req.body);
@@ -48,16 +47,32 @@ router.post('/recording-finished', async (req, res) => {
       return res.status(400).send('No recordingUrl found.');
     }
 
-    // 1. Aufnahme herunterladen
+    // Audio herunterladen und transkribieren
     const filename = `call_${Date.now()}.mp3`;
     const filePath = await downloadRecording(recordingUrl, filename);
-    console.log('Aufnahme gespeichert unter:', filePath);
-
-    // 2. Mit OpenAI Whisper transkribieren
     const text = await transcribeWithWhisper(filePath);
-    console.log('Transkribierter Text:', text);
 
-    // 3. (Optional) Ergebnis in Datenbank, E-Mail, KI, etc.
+    // Nummern auslesen (prüfe, wie sie in deinem Webhook wirklich heißen!)
+    const from_number = req.body.from || req.body.caller || '';
+    const to_number = req.body.to || req.body.called || '';
+
+    // In Supabase speichern
+    const { error } = await supabase
+      .from('calls')
+      .insert([
+        {
+          from_number,
+          to_number,
+          recording_url: recordingUrl,
+          transcript: text,
+          timestamp: new Date().toISOString()
+        }
+      ]);
+    if (error) {
+      console.error('Fehler beim Speichern in Supabase:', error);
+    } else {
+      console.log('Anruf + Transkript in DB gespeichert');
+    }
 
     res.status(200).send('OK');
   } catch (err) {
