@@ -2,66 +2,69 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Kundendashboard – anrufprofi.de</title>
+  <title>Kunden-Dashboard – anrufprofi.de</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- TailwindCSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons CDN -->
+  <!-- TailwindCSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- Chart.js CDN -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
-    body { background: linear-gradient(120deg, #f0f7fa 0%, #e5f5ef 100%); }
-    .censored { filter: blur(8px); user-select: none; }
-    .upgrade-btn { color: #2563eb; font-weight: 600; cursor: pointer; text-decoration: underline; margin-left: 0.5rem; }
+    body { background: linear-gradient(120deg, #e3f9f7 0%, #f8f8fc 100%); }
+    .censored { filter: blur(8px); user-select: none; pointer-events: none; }
+    .upgrade-btn { color: #2563eb; font-weight: 500; cursor: pointer; text-decoration: underline; }
     .upgrade-btn:hover { color: #1557c2; }
-    .card { border-radius: 1.25rem; box-shadow: 0 8px 32px 0 rgba(32, 78, 96, 0.14); }
-    .stat-icon { width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; border-radius: 9999px; font-size: 1.5rem; }
-    .glass { background: rgba(255,255,255,0.75); backdrop-filter: blur(8px); }
-    .navbar-blur { background: rgba(255,255,255,0.8); backdrop-filter: blur(14px); }
+    .glass { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); }
+    .stat-gradient1 { background: linear-gradient(120deg, #18cb96 60%, #5bffdd 100%);}
+    .stat-gradient2 { background: linear-gradient(120deg, #3a7efd 60%, #9fbcff 100%);}
+    .stat-gradient3 { background: linear-gradient(120deg, #f7b731 60%, #ffecb3 100%);}
+    .stat-gradient4 { background: linear-gradient(120deg, #e66b6b 60%, #ffbaba 100%);}
+    .stat-gradient5 { background: linear-gradient(120deg, #854fee 60%, #e0d8fc 100%);}
+    .stat-gradient6 { background: linear-gradient(120deg, #ff9068 60%, #fceabb 100%);}
+    .stat-gradient7 { background: linear-gradient(120deg, #42e695 60%, #3bb2b8 100%);}
+    .stat-icon { background: white; border-radius: 100%; box-shadow: 0 4px 20px #18cb9640; }
+    .navbar-blur { background: rgba(255,255,255,0.92); backdrop-filter: blur(14px); }
   </style>
 </head>
-<body class="min-h-screen font-sans">
+<body class="min-h-screen font-sans text-gray-900">
   <!-- Navbar -->
-  <nav class="navbar-blur fixed top-0 left-0 w-full shadow z-30">
-    <div class="max-w-6xl mx-auto flex justify-between items-center px-5 py-3">
+  <nav class="navbar-blur fixed top-0 left-0 w-full z-30 shadow">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
       <div class="flex items-center gap-3">
-        <img src="https://svgshare.com/i/15L1.svg" class="h-10 w-10 rounded-full border-2 border-green-400 shadow" alt="Logo">
-        <span class="text-2xl font-bold text-[#18CB96] tracking-tight">anrufprofi</span>
+        <img src="https://svgshare.com/i/15L1.svg" alt="Logo" class="h-10 w-10 rounded-full border-2 border-[#18cb96] shadow" />
+        <span class="text-2xl font-bold text-[#18cb96] tracking-tight">anrufprofi</span>
       </div>
       <div class="flex items-center gap-7">
-        <a href="#" class="text-gray-600 hover:text-[#18CB96] font-medium transition"><i class="bi bi-bar-chart"></i> Dashboard</a>
-        <a href="#" class="text-gray-600 hover:text-[#18CB96] font-medium transition"><i class="bi bi-gear"></i> Einstellungen</a>
-        <a href="#" class="text-gray-600 hover:text-[#18CB96] font-medium transition"><i class="bi bi-person-circle"></i> Profil</a>
-        <a href="/logout" class="ml-2 px-4 py-2 rounded-2xl bg-[#18CB96] text-white font-semibold shadow hover:opacity-90 transition"><i class="bi bi-box-arrow-right"></i> Logout</a>
+        <a href="#" class="text-gray-700 hover:text-[#18cb96] font-medium transition"><i class="bi bi-bar-chart"></i> Dashboard</a>
+        <a href="#" class="text-gray-700 hover:text-[#18cb96] font-medium transition"><i class="bi bi-box-arrow-right"></i> Logout</a>
       </div>
     </div>
   </nav>
 
-  <main class="max-w-6xl mx-auto pt-32 pb-16 px-4">
-    <!-- Welcome & Tarif Badge -->
-    <section class="mb-10">
-      <h1 class="text-3xl sm:text-4xl font-bold mb-3 text-gray-800">Willkommen im Kundenbereich</h1>
+  <main class="max-w-6xl mx-auto pt-28 pb-10 px-2 sm:px-6">
+    <section class="mb-8">
+      <h1 class="text-3xl sm:text-4xl font-extrabold mb-2 text-gray-800">Kunden-Dashboard</h1>
       <div id="plan-badge"></div>
     </section>
 
-    <!-- Statistik Kacheln -->
-    <section id="stats-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"></section>
+    <!-- Statistik-Kacheln -->
+    <section id="stats-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 mb-12"></section>
 
     <!-- Charts -->
     <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-      <div class="card glass p-7">
+      <div class="glass rounded-2xl p-8 shadow">
         <h2 class="font-semibold mb-5 flex items-center gap-2 text-lg text-gray-800"><i class="bi bi-graph-up"></i> Anrufe – Verlauf</h2>
         <canvas id="callsChart" height="120"></canvas>
       </div>
-      <div class="card glass p-7">
+      <div class="glass rounded-2xl p-8 shadow">
         <h2 class="font-semibold mb-5 flex items-center gap-2 text-lg text-gray-800"><i class="bi bi-pie-chart"></i> Feedback-Verteilung</h2>
         <canvas id="feedbackChart" height="120"></canvas>
       </div>
     </section>
 
     <!-- Letzte Anrufe Tabelle -->
-    <section class="card glass p-7 mb-7">
+    <section class="glass rounded-2xl p-8 mb-7 shadow">
       <h2 class="font-semibold mb-4 flex items-center gap-2 text-lg text-gray-800"><i class="bi bi-clock"></i> Letzte 10 Anrufe</h2>
       <div class="overflow-x-auto">
         <table class="min-w-full text-base">
@@ -84,18 +87,6 @@
     const clientId = new URLSearchParams(window.location.search).get('id');
     const planLevels = { 'Starter': 1, 'Basic': 2, 'Pro+': 3 };
 
-    async function fetchAll() {
-      const [clientRes, statsRes, callsRes] = await Promise.all([
-        fetch(`/api/clients/${clientId}`),
-        fetch(`/api/stats/${clientId}`),
-        fetch(`/api/calls/${clientId}?limit=10`)
-      ]);
-      const client = await clientRes.json();
-      const stats = await statsRes.json();
-      const calls = await callsRes.json();
-      return { client, stats, calls };
-    }
-
     function isLocked(plan, required) {
       return planLevels[plan] < planLevels[required];
     }
@@ -111,22 +102,22 @@
 
     function renderStats(stats, plan) {
       const items = [
-        { icon: 'bi-telephone-inbound', label: 'Anrufe gesamt', value: stats.total_calls, required: 'Starter', color: 'bg-gradient-to-tr from-[#2af598] to-[#009efd] text-white' },
-        { icon: 'bi-clock-history', label: 'Ø Gesprächsdauer', value: stats.avg_duration + " Sek.", required: 'Starter', color: 'bg-gradient-to-tr from-[#ffd6e0] to-[#fffcdc] text-gray-700' },
-        { icon: 'bi-check-circle', label: 'Erfolgreich bearbeitet', value: stats.success_rate + " %", required: 'Basic', color: 'bg-gradient-to-tr from-[#e0ffe5] to-[#aaffb0] text-gray-800' },
-        { icon: 'bi-calendar-check', label: 'Gebuchte Termine', value: stats.calendar_bookings, required: 'Basic', color: 'bg-gradient-to-tr from-[#ffe6f7] to-[#e0e7ff] text-gray-700' },
-        { icon: 'bi-hand-thumbs-up', label: 'Positives Feedback', value: stats.positive_feedback + " %", required: 'Pro+', color: 'bg-gradient-to-tr from-[#fbeee6] to-[#f7d9e3] text-gray-700' },
-        { icon: 'bi-person-badge', label: 'Wiederkehrende Anrufer', value: stats.repeating_callers, required: 'Pro+', color: 'bg-gradient-to-tr from-[#fff9c4] to-[#e0f7fa] text-gray-800' },
-        { icon: 'bi-hourglass-split', label: 'Minutenverbrauch', value: stats.minutes_used + " / " + stats.minutes_limit + " min", required: 'Starter', color: 'bg-gradient-to-tr from-[#b9deed] to-[#efefef] text-gray-700' }
+        { icon: 'bi-telephone-inbound', label: 'Anrufe gesamt', value: stats.total_calls, required: 'Starter', style: 'stat-gradient1' },
+        { icon: 'bi-clock-history', label: 'Ø Gesprächsdauer', value: stats.avg_duration + " Sek.", required: 'Starter', style: 'stat-gradient2' },
+        { icon: 'bi-check-circle', label: 'Erfolgreich bearbeitet', value: stats.success_rate + " %", required: 'Basic', style: 'stat-gradient3' },
+        { icon: 'bi-calendar-check', label: 'Gebuchte Termine', value: stats.calendar_bookings, required: 'Basic', style: 'stat-gradient4' },
+        { icon: 'bi-hand-thumbs-up', label: 'Positives Feedback', value: stats.positive_feedback + " %", required: 'Pro+', style: 'stat-gradient5' },
+        { icon: 'bi-person-badge', label: 'Wiederkehrende Anrufer', value: stats.repeating_callers, required: 'Pro+', style: 'stat-gradient6' },
+        { icon: 'bi-hourglass-split', label: 'Minutenverbrauch', value: stats.minutes_used + " / " + stats.minutes_limit + " min", required: 'Starter', style: 'stat-gradient7' }
       ];
-      document.getElementById('stats-grid').innerHTML = items.map(stat => {
+      document.getElementById('stats-grid').innerHTML = items.map((stat, i) => {
         const locked = isLocked(plan, stat.required);
         return `
-          <div class="card glass flex flex-col items-center justify-center py-8 px-5 text-center shadow relative transition hover:scale-[1.02] hover:shadow-xl ${stat.color}">
-            <span class="stat-icon mb-4 ${locked ? 'opacity-50' : ''}"><i class="bi ${stat.icon}"></i></span>
+          <div class="glass rounded-2xl flex flex-col items-center justify-center py-8 px-5 text-center shadow transition hover:scale-[1.02] hover:shadow-xl ${stat.style}">
+            <span class="stat-icon flex items-center justify-center w-14 h-14 mb-4 text-3xl shadow-inner"><i class="bi ${stat.icon}"></i></span>
             <div class="text-base font-medium mb-1">${stat.label}</div>
             <div class="${locked ? 'censored' : 'text-2xl font-bold'}">${locked ? '••••' : stat.value}</div>
-            ${locked ? `<button class="upgrade-btn absolute right-4 top-4" onclick="upgradePlan()">Upgrade</button>` : ''}
+            ${locked ? `<button class="upgrade-btn mt-2" onclick="upgradePlan()">Upgrade</button>` : ''}
           </div>
         `;
       }).join('');
@@ -146,15 +137,15 @@
     }
 
     function renderCharts(stats) {
-      // Dummy Daten, falls leer (Demo)
-      const daily = stats.daily_calls || [
-        { date: "2024-07-15", count: 10 },
-        { date: "2024-07-16", count: 13 },
-        { date: "2024-07-17", count: 9 },
-        { date: "2024-07-18", count: 14 },
-        { date: "2024-07-19", count: 8 },
-        { date: "2024-07-20", count: 12 },
-        { date: "2024-07-21", count: 16 }
+      // Dummy-Daten als Fallback
+      const daily = stats.daily_calls && stats.daily_calls.length ? stats.daily_calls : [
+        { date: "2024-07-11", count: 12 },
+        { date: "2024-07-12", count: 18 },
+        { date: "2024-07-13", count: 15 },
+        { date: "2024-07-14", count: 20 },
+        { date: "2024-07-15", count: 16 },
+        { date: "2024-07-16", count: 14 },
+        { date: "2024-07-17", count: 21 }
       ];
       new Chart(document.getElementById('callsChart').getContext('2d'), {
         type: 'line',
@@ -199,13 +190,29 @@
       alert("Upgrade auf Basic oder Pro+ möglich. Kontaktiere uns für mehr Funktionen!");
     }
 
-    fetchAll().then(({ client, stats, calls }) => {
-      const plan = (client.plan || 'Starter').trim();
-      renderPlanBadge(plan);
-      renderStats(stats, plan);
-      renderCallsTable(calls);
-      renderCharts(stats);
-    });
+    async function loadDashboard() {
+      try {
+        const [clientRes, statsRes, callsRes] = await Promise.all([
+          fetch(`/api/clients/${clientId}`),
+          fetch(`/api/stats/${clientId}`),
+          fetch(`/api/calls/${clientId}?limit=10`)
+        ]);
+        const client = await clientRes.json();
+        const stats = await statsRes.json();
+        const calls = await callsRes.json();
+
+        const plan = (client.plan || 'Starter').trim();
+        renderPlanBadge(plan);
+        renderStats(stats, plan);
+        renderCallsTable(calls);
+        renderCharts(stats);
+
+      } catch (e) {
+        document.getElementById('stats-grid').innerHTML = `<div class="col-span-4 text-red-500 text-lg text-center py-8">Dashboard-Daten konnten nicht geladen werden.</div>`;
+      }
+    }
+
+    loadDashboard();
   </script>
 </body>
 </html>
