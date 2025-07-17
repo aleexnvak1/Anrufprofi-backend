@@ -10,8 +10,8 @@
       background: #f5f8fa;
     }
     .card {
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
     .btn-primary {
       background-color: #18CB96;
@@ -21,14 +21,23 @@
       background-color: #15b186;
       border-color: #15b186;
     }
+    .profile-section-title {
+      font-size: 1.25rem;
+      color: #18CB96;
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+    .status {
+      min-height: 28px;
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
-
 <div class="container py-5">
-  <h2 class="mb-4 fw-bold">Kundenprofil bearbeiten</h2>
-  <div class="card p-4">
-    <form id="clientForm">
+  <h2 class="mb-4 fw-bold text-center text-primary">Kundenprofil bearbeiten</h2>
+  <div class="card p-4 mx-auto" style="max-width:600px;">
+    <form id="clientForm" autocomplete="off">
       <div class="mb-3">
         <label for="companyName" class="form-label">Unternehmensname</label>
         <input type="text" class="form-control" id="companyName" required>
@@ -37,9 +46,19 @@
         <label for="contactName" class="form-label">Ansprechpartner</label>
         <input type="text" class="form-control" id="contactName" required>
       </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="phoneNumber" class="form-label">Klara-Telefonnummer</label>
+          <input type="tel" class="form-control" id="phoneNumber" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="contactPhone" class="form-label">Kunden-Kontaktnummer</label>
+          <input type="tel" class="form-control" id="contactPhone" required>
+        </div>
+      </div>
       <div class="mb-3">
         <label for="aiName" class="form-label">Name der KI</label>
-        <input type="text" class="form-control" id="aiName">
+        <input type="text" class="form-control" id="aiName" placeholder="z.B. Klara">
       </div>
       <div class="mb-3">
         <label for="greetingText" class="form-label">Begrüßungstext</label>
@@ -49,9 +68,18 @@
         <label for="aiInstructions" class="form-label">KI-Anweisungen</label>
         <textarea class="form-control" id="aiInstructions" rows="3"></textarea>
       </div>
+      <div class="mb-3">
+        <label for="subscription" class="form-label">Abo-Paket</label>
+        <select class="form-select" id="subscription" required>
+          <option value="">Bitte auswählen</option>
+          <option value="Starter">Starter – 99 €/Monat</option>
+          <option value="Basic">Basic – 199 €/Monat</option>
+          <option value="Pro+">Pro+ – 499 €/Monat</option>
+        </select>
+      </div>
       <button type="submit" class="btn btn-primary w-100">Änderungen speichern</button>
     </form>
-    <div id="status" class="mt-3 text-success fw-semibold"></div>
+    <div id="status" class="mt-3 fw-semibold status text-center"></div>
   </div>
 </div>
 
@@ -62,12 +90,19 @@
   async function fetchClient() {
     const res = await fetch(`https://anrufprofi-backend.onrender.com/api/clients/${clientId}`);
     const json = await res.json();
+    if (!json.client) {
+      document.getElementById('status').textContent = '❌ Kunde nicht gefunden';
+      return;
+    }
     const c = json.client;
     document.getElementById('companyName').value = c.company_name || '';
     document.getElementById('contactName').value = c.contact_name || '';
+    document.getElementById('phoneNumber').value = c.phone_number || '';
+    document.getElementById('contactPhone').value = c.contact_phone || '';
     document.getElementById('aiName').value = c.ai_name || '';
     document.getElementById('greetingText').value = c.greeting_text || '';
     document.getElementById('aiInstructions').value = c.ai_instructions || '';
+    document.getElementById('subscription').value = c.subscription || '';
   }
 
   document.getElementById('clientForm').addEventListener('submit', async e => {
@@ -75,9 +110,12 @@
     const updates = {
       company_name: document.getElementById('companyName').value,
       contact_name: document.getElementById('contactName').value,
+      phone_number: document.getElementById('phoneNumber').value,
+      contact_phone: document.getElementById('contactPhone').value,
       ai_name: document.getElementById('aiName').value,
       greeting_text: document.getElementById('greetingText').value,
-      ai_instructions: document.getElementById('aiInstructions').value
+      ai_instructions: document.getElementById('aiInstructions').value,
+      subscription: document.getElementById('subscription').value
     };
 
     const res = await fetch(`https://anrufprofi-backend.onrender.com/api/clients/${clientId}`, {

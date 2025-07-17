@@ -2,35 +2,28 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
-const supabase = require('./supabaseclient'); // ✅ Nur einmal laden
+const supabase = require('./supabaseclient'); // Nur einmal laden
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// ✅ Middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// ✅ Statische Dateien bereitstellen (Frontend liegt z. B. in /public)
+// Statische Dateien bereitstellen (Frontend liegt z. B. in /public)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ Routen einbinden
-const contactRoutes = require('./routes/contact');
-const clientRoutes = require('./routes/clients');
-const callRoutes = require('./routes/calls');
-const klaraRoutes = require('./routes/klara');
-const feedbackRoutes = require('./routes/feedback');
-const statsRoutes = require('./routes/stats');
+// Routen einbinden
+app.use('/api/contact', require('./routes/contact'));
+app.use('/api/clients', require('./routes/clients'));
+app.use('/api/calls', require('./routes/calls'));
+app.use('/api/klara', require('./routes/klara'));       // KI-Endpunkt
+app.use('/api/feedback', require('./routes/feedback')); // Feedback-Endpunkt
+app.use('/api/demo-requests', require('./routes/demo-request'));
 
 
-app.use('/api/contact', contactRoutes);
-app.use('/api/clients', clientRoutes);
-app.use('/api/calls', callRoutes);          
-app.use('/api/klara', klaraRoutes);           // ✅ KI-Endpunkt
-app.use('/api/feedback', feedbackRoutes);     // ✅ Feedback-Endpunkt
-app.use('/api/stats', statsRoutes);           // ✅ Statistiken-Endpunkt
-
-// ✅ Alle Anfragen abrufen für Admin-Dashboard
+// Alle Kontaktanfragen für das Admin-Dashboard abrufen
 app.get('/api/requests', async (req, res) => {
   try {
     const { data, error } = await supabase
@@ -52,7 +45,7 @@ app.get('/api/requests', async (req, res) => {
   }
 });
 
-// ✅ Anfrage als erledigt markieren
+// Anfrage als erledigt markieren
 app.patch('/api/requests/:id', async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
@@ -72,7 +65,7 @@ app.patch('/api/requests/:id', async (req, res) => {
   }
 });
 
-// ✅ Anfrage löschen
+// Anfrage löschen
 app.delete('/api/requests/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -91,12 +84,12 @@ app.delete('/api/requests/:id', async (req, res) => {
   }
 });
 
-// ✅ Weiterleitung zur Login-Seite (Startseite)
+// Weiterleitung zur Login-Seite (Startseite)
 app.get('/', (req, res) => {
   res.redirect('/adminpassword.html');
 });
 
-// ✅ Server starten
+// Server starten
 app.listen(PORT, () => {
   console.log(`✅ Server läuft auf http://localhost:${PORT}`);
 });

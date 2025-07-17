@@ -5,15 +5,21 @@ const supabase = require('../supabaseclient');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  const { name, email, message } = req.body;
+  // ➕ Jetzt mit phone!
+  const { name, email, phone, message } = req.body;
 
-  console.log('📨 Neue Anfrage erhalten:', { name, email, message });
+  // Pflichtfeld-Check (alle Felder müssen ausgefüllt sein)
+  if (!name || !email || !phone || !message) {
+    return res.status(400).json({ success: false, error: 'Bitte alle Pflichtfelder ausfüllen.' });
+  }
+
+  console.log('📨 Neue Anfrage erhalten:', { name, email, phone, message });
 
   try {
-    // 1. In Supabase speichern
+    // 1. In Supabase speichern (jetzt mit phone!)
     const { error } = await supabase
       .from('contact_requests')
-      .insert([{ name, email, message, status: 'offen' }]);
+      .insert([{ name, email, phone, message, status: 'offen' }]);
 
     if (error) {
       console.error('❌ Fehler beim Speichern in Supabase:', error);
@@ -33,31 +39,26 @@ router.post('/', async (req, res) => {
 
     const htmlContent = `
       <div style="font-family:'Plus Jakarta Sans', sans-serif; color:#333; max-width:600px; margin:0 auto; text-align:center;">
-
         <div style="background-color:#007aff; padding:20px 30px; color:white; border-radius:10px 10px 0 0;">
           <h2 style="margin:0; font-size:22px;">Vielen Dank für deine Anfrage, ${name}!</h2>
         </div>
-
         <div style="padding:30px; background-color:#ffffff; border:1px solid #eee; border-top:none;">
-
           <p style="font-size:16px; margin-bottom:20px;">
             Wir haben deine Nachricht erhalten und melden uns so schnell wie möglich bei dir zurück.
           </p>
-
           <h3 style="font-size:18px; color:#18CB96; margin-top:30px;">📝 Deine Nachricht:</h3>
           <blockquote style="margin: 20px auto; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #18CB96; text-align:left;">
             ${message}
           </blockquote>
-
+          <h4 style="font-size:15px; margin-top:25px;">📞 Deine Telefonnummer:</h4>
+          <p style="font-size:15px; color:#007aff; font-weight:bold;">${phone}</p>
           <p style="font-size:15px; margin-top:30px;">
             Bis bald – dein Team von <strong>anrufprofi.de</strong> 👋
           </p>
         </div>
-
         <div style="padding:20px 0; background-color:#f7f7f7; border-top:1px solid #eee;">
           <img src="https://anrufprofi-backend.onrender.com/Fotos/signatur.png" alt="Klara Signatur" style="width:auto; max-width:100%; height:auto; display:block; margin:0 auto;">
         </div>
-
       </div>
     `;
 
