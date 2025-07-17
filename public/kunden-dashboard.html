@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Kundendashboard – anrufprofi.de</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- TailwindCSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    body { background: linear-gradient(120deg, #f0f7fa 0%, #e5f5ef 100%); }
+    .censored { filter: blur(8px); user-select: none; }
+    .upgrade-btn { color: #2563eb; font-weight: 600; cursor: pointer; text-decoration: underline; margin-left: 0.5rem; }
+    .upgrade-btn:hover { color: #1557c2; }
+    .card { border-radius: 1.25rem; box-shadow: 0 8px 32px 0 rgba(32, 78, 96, 0.14); }
+    .stat-icon { width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; border-radius: 9999px; font-size: 1.5rem; }
+    .glass { background: rgba(255,255,255,0.75); backdrop-filter: blur(8px); }
+    .navbar-blur { background: rgba(255,255,255,0.8); backdrop-filter: blur(14px); }
+  </style>
+</head>
+<body class="min-h-screen font-sans">
+  <!-- Navbar -->
+  <nav class="navbar-blur fixed top-0 left-0 w-full shadow z-30">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-5 py-3">
+      <div class="flex items-center gap-3">
+        <img src="https://svgshare.com/i/15L1.svg" class="h-10 w-10 rounded-full border-2 border-green-400 shadow" alt="Logo">
+        <span class="text-2xl font-bold text-[#18CB96] tracking-tight">anrufprofi</span>
+      </div>
+      <div class="flex items-center gap-7">
+        <a href="#" class="text-gray-600 hover:text-[#18CB96] font-medium transition"><i class="bi bi-bar-chart"></i> Dashboard</a>
+        <a href="#" class="text-gray-600 hover:text-[#18CB96] font-medium transition"><i class="bi bi-gear"></i> Einstellungen</a>
+        <a href="#" class="text-gray-600 hover:text-[#18CB96] font-medium transition"><i class="bi bi-person-circle"></i> Profil</a>
+        <a href="/logout" class="ml-2 px-4 py-2 rounded-2xl bg-[#18CB96] text-white font-semibold shadow hover:opacity-90 transition"><i class="bi bi-box-arrow-right"></i> Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto pt-32 pb-16 px-4">
+    <!-- Welcome & Tarif Badge -->
+    <section class="mb-10">
+      <h1 class="text-3xl sm:text-4xl font-bold mb-3 text-gray-800">Willkommen im Kundenbereich</h1>
+      <div id="plan-badge"></div>
+    </section>
+
+    <!-- Statistik Kacheln -->
+    <section id="stats-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"></section>
+
+    <!-- Charts -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      <div class="card glass p-7">
+        <h2 class="font-semibold mb-5 flex items-center gap-2 text-lg text-gray-800"><i class="bi bi-graph-up"></i> Anrufe – Verlauf</h2>
+        <canvas id="callsChart" height="120"></canvas>
+      </div>
+      <div class="card glass p-7">
+        <h2 class="font-semibold mb-5 flex items-center gap-2 text-lg text-gray-800"><i class="bi bi-pie-chart"></i> Feedback-Verteilung</h2>
+        <canvas id="feedbackChart" height="120"></canvas>
+      </div>
+    </section>
+
+    <!-- Letzte Anrufe Tabelle -->
+    <section class="card glass p-7 mb-7">
+      <h2 class="font-semibold mb-4 flex items-center gap-2 text-lg text-gray-800"><i class="bi bi-clock"></i> Letzte 10 Anrufe</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-base">
+          <thead>
+            <tr class="text-gray-700 bg-[#e6faf1] rounded">
+              <th class="p-3 text-left font-semibold">Datum</th>
+              <th class="p-3 text-left font-semibold">Nummer</th>
+              <th class="p-3 text-left font-semibold">Dauer (Sek.)</th>
+              <th class="p-3 text-left font-semibold">Ergebnis</th>
+              <th class="p-3 text-left font-semibold">Feedback</th>
+            </tr>
+          </thead>
+          <tbody id="callsTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const clientId = new URLSearchParams(window.location.search).get('id');
+    const planLevels = { 'Starter': 1, 'Basic': 2, 'Pro+': 3 };
+
+    async function fetchAll() {
+      const [clientRes, statsRes, callsRes] = await Promise.all([
+        fetch(`/api/clients/${clientId}`),
+        fetch(`/api/stats/${clientId}`),
+        fetch(`/api/calls/${clientId}?limit=10`)
+      ]);
+      const client = await clientRes.json();
+      const stats = await statsRes.json();
+      const calls = await callsRes.json();
+      return { client, stats, calls };
+    }
+
+    function isLocked(plan, required) {
+      return planLevels[plan] < planLevels[required];
+    }
+
+    function renderPlanBadge(plan) {
+      let color, text, emoji;
+      if (plan === 'Starter') { color = 'bg-gray-200 text-gray-800'; text = 'Starter'; emoji = '🌱'; }
+      else if (plan === 'Basic') { color = 'bg-blue-200 text-blue-800'; text = 'Basic'; emoji = '🚀'; }
+      else if (plan === 'Pro+') { color = 'bg-green-200 text-green-900'; text = 'Pro+'; emoji = '💎'; }
+      document.getElementById('plan-badge').innerHTML =
+        `<span class="inline-block px-4 py-2 rounded-full font-semibold text-lg ${color} shadow-sm">${emoji} Tarif: ${text}</span>`;
+    }
+
+    function renderStats(stats, plan) {
+      const items = [
+        { icon: 'bi-telephone-inbound', label: 'Anrufe gesamt', value: stats.total_calls, required: 'Starter', color: 'bg-gradient-to-tr from-[#2af598] to-[#009efd] text-white' },
+        { icon: 'bi-clock-history', label: 'Ø Gesprächsdauer', value: stats.avg_duration + " Sek.", required: 'Starter', color: 'bg-gradient-to-tr from-[#ffd6e0] to-[#fffcdc] text-gray-700' },
+        { icon: 'bi-check-circle', label: 'Erfolgreich bearbeitet', value: stats.success_rate + " %", required: 'Basic', color: 'bg-gradient-to-tr from-[#e0ffe5] to-[#aaffb0] text-gray-800' },
+        { icon: 'bi-calendar-check', label: 'Gebuchte Termine', value: stats.calendar_bookings, required: 'Basic', color: 'bg-gradient-to-tr from-[#ffe6f7] to-[#e0e7ff] text-gray-700' },
+        { icon: 'bi-hand-thumbs-up', label: 'Positives Feedback', value: stats.positive_feedback + " %", required: 'Pro+', color: 'bg-gradient-to-tr from-[#fbeee6] to-[#f7d9e3] text-gray-700' },
+        { icon: 'bi-person-badge', label: 'Wiederkehrende Anrufer', value: stats.repeating_callers, required: 'Pro+', color: 'bg-gradient-to-tr from-[#fff9c4] to-[#e0f7fa] text-gray-800' },
+        { icon: 'bi-hourglass-split', label: 'Minutenverbrauch', value: stats.minutes_used + " / " + stats.minutes_limit + " min", required: 'Starter', color: 'bg-gradient-to-tr from-[#b9deed] to-[#efefef] text-gray-700' }
+      ];
+      document.getElementById('stats-grid').innerHTML = items.map(stat => {
+        const locked = isLocked(plan, stat.required);
+        return `
+          <div class="card glass flex flex-col items-center justify-center py-8 px-5 text-center shadow relative transition hover:scale-[1.02] hover:shadow-xl ${stat.color}">
+            <span class="stat-icon mb-4 ${locked ? 'opacity-50' : ''}"><i class="bi ${stat.icon}"></i></span>
+            <div class="text-base font-medium mb-1">${stat.label}</div>
+            <div class="${locked ? 'censored' : 'text-2xl font-bold'}">${locked ? '••••' : stat.value}</div>
+            ${locked ? `<button class="upgrade-btn absolute right-4 top-4" onclick="upgradePlan()">Upgrade</button>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderCallsTable(calls) {
+      document.getElementById('callsTable').innerHTML = calls.length ?
+        calls.map(call => `
+          <tr class="border-b last:border-none">
+            <td class="p-3">${new Date(call.timestamp).toLocaleString('de-DE')}</td>
+            <td class="p-3">${call.from_number}</td>
+            <td class="p-3">${call.duration_seconds}</td>
+            <td class="p-3">${call.status}</td>
+            <td class="p-3">${call.feedback ? call.feedback : '-'}</td>
+          </tr>
+        `).join('') : `<tr><td colspan="5" class="p-3 text-center text-gray-500">Keine Anrufe gefunden.</td></tr>`;
+    }
+
+    function renderCharts(stats) {
+      // Dummy Daten, falls leer (Demo)
+      const daily = stats.daily_calls || [
+        { date: "2024-07-15", count: 10 },
+        { date: "2024-07-16", count: 13 },
+        { date: "2024-07-17", count: 9 },
+        { date: "2024-07-18", count: 14 },
+        { date: "2024-07-19", count: 8 },
+        { date: "2024-07-20", count: 12 },
+        { date: "2024-07-21", count: 16 }
+      ];
+      new Chart(document.getElementById('callsChart').getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: daily.map(d => d.date.slice(5)),
+          datasets: [{
+            label: 'Anrufe',
+            data: daily.map(d => d.count),
+            backgroundColor: 'rgba(24,203,150,0.15)',
+            borderColor: '#18CB96',
+            pointRadius: 4,
+            borderWidth: 3,
+            tension: 0.4,
+            fill: true
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true, grid: { color: '#f0f4f8' } }, x: { grid: { color: '#f0f4f8' } } }
+        }
+      });
+
+      // Feedback-Chart
+      const feedback = stats.feedback_counts || { positive: 70, neutral: 20, negative: 10 };
+      new Chart(document.getElementById('feedbackChart').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Positiv', 'Neutral', 'Negativ'],
+          datasets: [{
+            data: [feedback.positive, feedback.neutral, feedback.negative],
+            backgroundColor: ['#18CB96', '#FFCE56', '#E66B6B'],
+            borderWidth: 3
+          }]
+        },
+        options: {
+          plugins: { legend: { position: 'bottom' } }
+        }
+      });
+    }
+
+    function upgradePlan() {
+      alert("Upgrade auf Basic oder Pro+ möglich. Kontaktiere uns für mehr Funktionen!");
+    }
+
+    fetchAll().then(({ client, stats, calls }) => {
+      const plan = (client.plan || 'Starter').trim();
+      renderPlanBadge(plan);
+      renderStats(stats, plan);
+      renderCallsTable(calls);
+      renderCharts(stats);
+    });
+  </script>
+</body>
+</html>
